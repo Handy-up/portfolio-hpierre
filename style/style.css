@@ -1,17 +1,59 @@
-body {
-    background: linear-gradient(to bottom, #0F1724, #49a07e, #0F1724);
+/* =========================
+   Variables
+   ========================= */
+:root {
+    --color-background-dark: #0F1724;
+    --color-background-light: #49a07e;
+    --color-background-light-hover: #6dd19e;
+    --color-text-light: rgba(210, 210, 210, 0.95);
+    --color-text-dark: rgba(0, 0, 0, 0.89);
+    --color-border-highlight: rgb(211, 18, 18);
+    --color-white: #ffffff;
+    --color-black: #000000;
 }
 
-/* Animation sur le menu */
+/* =========================
+   Reset & Global Styles
+   ========================= */
+/* Supprimer les styles automatiques */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to bottom, var(--color-background-dark), var(--color-background-light), var(--color-background-dark));
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--color-text-light);
+}
+
+/* Supprimer les styles automatiques des formulaires */
+input, textarea {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    outline: none;
+}
+
+/* =========================
+   Navbar
+   ========================= */
+.navbar {
+    background-color: var(--color-background-dark);
+}
+
+.navbar.fixed-top {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .navbar-nav .nav-link {
     position: relative;
     font-size: 18px;
-    color: rgba(210, 210, 210, 0.95);
+    color: var(--color-text-light);
     transition: color 0.3s ease;
 }
-
-
-
 
 .navbar-nav .nav-link::before {
     content: '';
@@ -30,42 +72,34 @@ body {
 .navbar-nav .nav-link.animate::before {
     visibility: visible;
     transform: scaleX(1);
-    background-color: rgba(210, 210, 210, 0.95);
+    background-color: var(--color-text-light);
 }
 
-.navbar {
-    background-color: #0F1724;
-}
-
-/* Menu fixe lors du défilement */
-.navbar.fixed-top {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Légère ombre pour la profondeur */
-}
-
-.logo-dev {
-    width: 68%;
-}
-
+/* =========================
+   Sections & Components
+   ========================= */
 .section-title {
     text-align: center;
     padding: 40px 0;
-    color: #fff;
-    border: 1px solid rgb(211, 18, 18);
+    color: var(--color-white);
+    /*border: 1px solid var(--color-border-highlight);*/
 }
 
-.box-1{
+.sec-project {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+}
+
+.box-1 {
     background-color: rgba(255, 255, 255, 0.89);
-    /*border: 1px solid rgb(211, 18, 18);*/
 }
 
 .avatar {
-    vertical-align: middle;
     width: 300px;
     height: 375px;
-    border-radius: 0;
     clip-path: ellipse(50% 40% at 50% 50%);
     object-fit: cover;
-    margin: auto; /* Assure le centrage horizontal */
+    margin: auto;
 }
 
 .div-avatar {
@@ -73,11 +107,12 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    /*border: 1px solid rgb(211, 18, 18);*/
     height: 100%;
 }
 
-
+/* =========================
+   Animations
+   ========================= */
 @-webkit-keyframes slide-right {
     0% {
         -webkit-transform: translateX(0);
@@ -88,6 +123,7 @@ body {
         transform: translateX(100px);
     }
 }
+
 @keyframes slide-right {
     0% {
         -webkit-transform: translateX(0);
@@ -99,13 +135,12 @@ body {
     }
 }
 
-
-
-
-/* Styles pour agrandir le titre et l'animation */
+/* =========================
+   Titles
+   ========================= */
 .d-flex .card-title {
-    font-size: 40px; /* Taille du texte pour "Je suis" */
-    color: rgba(0, 0, 0, 0.89);
+    font-size: 40px;
+    color: var(--color-text-dark);
     left: -100px;
     position: relative;
     -webkit-animation: slide-right 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
@@ -113,35 +148,48 @@ body {
 }
 
 .d-flex h1 {
-    font-size: 60px; /* Taille du texte pour "PIERRE HANDY" */
+    font-size: 60px;
     font-weight: bold;
-    color: rgba(0, 0, 0, 0.89);
+    color: var(--color-text-dark);
 }
 
+/* =========================
+   Buttons
+   ========================= */
 .bg-custom-green {
-    background-color: #49a07e;
+    background-color: var(--color-background-light);
     transition: background-color 0.3s ease;
 }
 
 .bg-custom-green:hover {
-    background-color: #6dd19e; /* Une teinte légèrement plus foncée pour l'effet hover */
+    background-color: var(--color-background-light-hover);
 }
 
-.sec-project{
-    background-color: #0F1724;
-    /*border: 1px solid rgb(211, 18, 18);*/
+/* =========================
+   Carousel
+   ========================= */
+.carousel-caption {
+    color: var(--color-black);
+    display: none;
 }
 
-
-
-
+/* =========================
+   Typography
+   ========================= */
 .twelve h2 {
-    font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:center; margin:auto; white-space:nowrap; padding-bottom:13px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    width: 160px;
+    text-align: center;
+    margin: auto;
+    white-space: nowrap;
+    padding-bottom: 13px;
 }
-
 
 .twelve h2:before {
-    background-color: #ffffff;
+    background-color: var(--color-white);
     content: '';
     display: block;
     height: 3px;
@@ -149,18 +197,68 @@ body {
     margin-bottom: 5px;
 }
 
+/* =========================
+   Responsive Design
+   ========================= */
+@media (max-width: 768px) {
+    .d-flex {
+        flex-direction: row;
+    }
 
-/*Information caouselle*/
-.carousel-caption{
-    color: black;
-    display: none;
+    .d-flex h1 {
+        font-size: 40px;
+    }
+
+    .d-flex .card-title {
+        font-size: 30px;
+        /*border: 1px solid var(--color-border-highlight);*/
+    }
+
+    .avatar {
+        width: 150px;
+        height: 200px;
+    }
+
+    .div-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: left;
+        /*border: 1px solid var(--color-border-highlight);*/
+    }
+
+    .d-flex .avatar {
+        margin-left: 15px;
+    }
 }
 
-input, textarea {
-    background-color: black;
-    color: white;
+@media (max-width: 480px) {
+    .d-flex {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .d-flex h1 {
+        font-size: 30px;
+    }
+
+    .d-flex .card-title {
+        font-size: 20px;
+    }
+
+    .section-title {
+        padding: 20px 0;
+        /*border: 1px solid var(--color-border-highlight);*/
+    }
+
+    .avatar {
+        width: 70px;
+        height: 100px;
+        margin-left: 10px;
+    }
+
+    .div-avatar {
+        justify-content: flex-end;
+        /*border: 1px solid var(--color-border-highlight);*/
+    }
 }
-
-
-
-
