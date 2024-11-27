@@ -7,75 +7,79 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="images/logo/dev-logo.svg">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+
+    <!-- Custom CSS -->
     <link href="style/style.css" rel="stylesheet">
+
+    <!-- TailwindCSS (use only if necessary to avoid conflict with Bootstrap) -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body>
 <!-- Barre de Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container-fluid logo-dev">
-        <a class="navbar-brand text-white" href="#">Handy.dev</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+<nav class="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="#">Handy.dev</a>
+        <button class="navbar-toggler" id="menu-toggler" aria-label="Toggle navigation">
+            <div class="navbar-toggler-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </button>
-        <div class="navbar-collapse nav-space" id="navbarTogglerDemo02">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">À propos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#skills">Compétences</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#projects">Projets</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#education">Formations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
-                </li>
+        <div class="navbar-menu" id="navbar-menu">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="#about" class="nav-link">À propos</a></li>
+                <li class="nav-item"><a href="#skills" class="nav-link">Compétences</a></li>
+                <li class="nav-item"><a href="#projects" class="nav-link">Projets</a></li>
+                <li class="nav-item"><a href="#education" class="nav-link">Formations</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
+
 <!-- Section À propos -->
-<section id="about" class="pt-5 mt-5">
-    <div class="card m-4 box-1">
-        <div class="card-body d-flex flex-wrap">
-            <div class="container-fluid p-lg-5">
-                <!-- Utilisation de d-flex pour créer deux colonnes -->
-                <div class="row d-flex align-items-center">
+<section id="about" class="about-section">
+    <div class="card">
+        <div class="card-body">
+            <div class="content">
+                <div class="main-content">
                     <!-- Section 1: Texte -->
-                    <div class="col-lg-8 d-flex flex-column justify-content-start">
-                        <div class="mb-3 d-flex align-items-center">
+                    <div class="text-section">
+                        <div class="intro">
                             <!-- Texte "Je suis Handy" -->
                             <div class="d-flex">
-                                <h3 id="introText" class="card-title typewriter">Je suis,</h3>
+                                <h3 id="introText" class="typewriter">Je suis,</h3>
                                 <h1 class="ms-2">HANDY</h1>
                             </div>
                             <!-- Avatar sur petits écrans -->
-                            <img src="images/profil/pic.png" alt="Jordan Image" class="img-fluid avatar d-lg-none ms-3">
+                            <img src="images/profil/pic.png" alt="Jordan Image" class="img-fluid avatar mobile-avatar">
                         </div>
-                        <p class="text-dark fs-4">
+                        <p class="text-resume">
                             Développeur full-stack passionné par la technologie, le multimédia et l'entreprenariat. Mes expériences quotidiennes me permettent de rencontrer beaucoup de gens partageant les mêmes intérêts.
                         </p>
-                        <div class="mt-auto">
-                            <a href="documments/Charles_cv.pdf" class="btn btn-dark m-2" target="_blank" rel="noopener noreferrer">Télécharger le CV</a>
-                            <a href="https://github.com/Handy-up" class="btn btn-outline-dark m-2" target="_blank" rel="noopener noreferrer">Voir mon GitHub</a>
+                        <div class="buttons">
+                            <a href="documments/Charles_cv.pdf" class="btn" target="_blank" rel="noopener noreferrer">Télécharger le CV</a>
+                            <a href="https://github.com/Handy-up" class="btn outline-btn" target="_blank" rel="noopener noreferrer">Voir mon GitHub</a>
                         </div>
                     </div>
                     <!-- Section 2: Avatar (affiché uniquement sur grands écrans) -->
-                    <div class="col-lg-4 div-avatar d-none d-lg-flex">
-                        <img src="images/profil/pic.png" alt="Jordan Image" class="img-fluid avatar">
+                    <div class="avatar-section">
+                        <img src="images/profil/pic.png" alt="Jordan Image" class="img-fluid avatar desktop-avatar">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <!-- Section Compétences -->
 <section id="skills" class="p-5 text-white bg-black">
@@ -657,8 +661,15 @@
     </div>
 </footer>
 
+<!-- Theater.js for animations -->
 <script src="https://cdn.jsdelivr.net/npm/theaterjs@3.0.0/dist/theater.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+<!-- Custom JavaScript -->
 <script src="JsFiles/app.js"></script>
 </body>
 </html>
