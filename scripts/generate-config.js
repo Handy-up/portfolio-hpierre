@@ -28,18 +28,13 @@ function parseEnv(content) {
   }, {});
 }
 
-if (!fs.existsSync(envPath)) {
-  console.error('Missing .env file. Copy .env.example to .env and fill EmailJS values.');
-  process.exit(1);
-}
-
-const env = parseEnv(fs.readFileSync(envPath, 'utf8'));
+const fileEnv = fs.existsSync(envPath) ? parseEnv(fs.readFileSync(envPath, 'utf8')) : {};
+const env = { ...process.env, ...fileEnv };
 const requiredKeys = ['EMAILJS_SERVICE_ID', 'EMAILJS_TEMPLATE_ID', 'EMAILJS_PUBLIC_KEY'];
 const missingKeys = requiredKeys.filter(key => !env[key]);
 
 if (missingKeys.length) {
-  console.error(`Missing required env values: ${missingKeys.join(', ')}`);
-  process.exit(1);
+  console.warn(`Missing optional env values: ${missingKeys.join(', ')}. Contact form will stay disabled until they are configured.`);
 }
 
 const config = `/* Generated from .env. Do not edit or commit this file. */
