@@ -1,666 +1,535 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pierre Handy Charles</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="images/logo/dev-logo.svg">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="style/style.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Handy.dev — Développeur Full-Stack</title>
+  <meta name="description" content="Pierre Handy Charles — Développeur full-stack React, Next.js, React Native. Builder de produits digitaux.">
+  <link rel="icon" type="image/svg+xml" href="images/logo/dev-logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="style/style.css" rel="stylesheet">
+  <!-- EmailJS — envoi de formulaire sans backend -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-<!-- Barre de Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container-fluid logo-dev">
-        <a class="navbar-brand text-white" href="#">Handy.dev</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse nav-space" id="navbarTogglerDemo02">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">À propos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#skills">Compétences</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#projects">Projets</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#education">Formations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+
+<!-- Cursor -->
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- ─────────────────── NAV ─────────────────────────────── -->
+<nav class="navbar" role="navigation">
+  <div class="nav-inner">
+    <a href="#about" class="nav-logo">Handy<span>.dev</span></a>
+    <!-- desktop links -->
+    <ul class="nav-links-desktop">
+      <li><a href="#about" data-i18n="nav.about">À propos</a></li>
+      <li><a href="#skills" data-i18n="nav.skills">Compétences</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">Projets</a></li>
+      <li><a href="#education" data-i18n="nav.education">Formations</a></li>
+      <li><a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact</a></li>
+      <li><button class="lang-switch nav-lang-switch" type="button" id="lang-switch" aria-label="Switch language">FR / EN</button></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
-<!-- Section À propos -->
-<section id="about" class="pt-5 mt-5">
-    <div class="card m-4 box-1">
-        <div class="card-body d-flex flex-wrap">
-            <div class="container-fluid p-lg-5">
-                <!-- Utilisation de d-flex pour créer deux colonnes -->
-                <div class="row d-flex align-items-start">
-                    <!-- Section 1: Texte - Utilisation de col-lg-8 pour prendre plus d'espace -->
-                    <div class="col-lg-8">
-                        <!-- Utilisation de d-flex pour aligner le contenu en haut -->
-                        <div class="d-flex flex-column justify-content-start">
-                            <div class="mb-3">
-                                <div class="d-flex">
-                                    <h3 id="introText" class="card-title typewriter">Je suis,</h3> <!-- Ajout de l'ID pour TheaterJS -->
-                                    <h1 class="w-50">HANDY</h1>
-                                </div>
-                                <p class="text-dark fs-4">
-                                    Développeur full-stack passionné par la technologie, le multimédia et l'entreprenariat. Mes expériences quotidiennes me permettent de rencontrer beaucoup de gens partageant les mêmes intérêts.
-                                </p>
-                            </div>
-                            <!-- Bouton aligné à gauche, ne prend que l'espace nécessaire -->
-                            <div class="mt-auto ">
-                                <a href="documments/Charles_cv.pdf" class="btn btn-dark m-2"  target="_blank" rel="noopener noreferrer">Télécharger le CV</a>
-                                <a href="https://github.com/Handy-up" class="btn btn-outline-dark m-2"  target="_blank" rel="noopener noreferrer">Voir mon GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Section 2: Image - Utilisation de col-lg-4 pour prendre moins d'espace -->
-                    <div class="col-lg-4 div-avatar">
-                        <img src="images/profil/pic.png" alt="Jordan Image" class="img-fluid avatar" >
-                    </div>
+<!-- ── Mobile overlay — HORS du nav (évite le backdrop-filter bug) -->
+<div class="mobile-nav-overlay" id="mobile-nav-overlay" aria-hidden="true">
+  <ul class="mobile-nav-links">
+    <li><a href="#about" data-i18n="nav.about">À propos</a></li>
+    <li><a href="#skills" data-i18n="nav.skills">Compétences</a></li>
+    <li><a href="#projects" data-i18n="nav.projects">Projets</a></li>
+    <li><a href="#education" data-i18n="nav.education">Formations</a></li>
+    <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+    <li><button class="lang-switch mobile-lang-switch" type="button" id="mobile-lang-switch" aria-label="Switch language">FR / EN</button></li>
+  </ul>
+</div>
 
-                </div>
-            </div>
+<!-- ─────────────────── HERO ─────────────────────────────── -->
+<section id="about">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+  </div>
+
+  <div class="hero-inner">
+    <!-- Texte -->
+    <div class="hero-content">
+      <div class="hero-topline reveal">
+        <div class="hero-status">
+          <span class="status-dot"></span>
+          <span class="status-text">open_to_collaborate<span class="status-cursor">_</span></span>
         </div>
+        <button class="meet-chip" type="button" id="book-meet-btn">
+          <span class="meet-dot"></span>
+          <span data-i18n="hero.book">Réserver un Meet</span>
+        </button>
+      </div>
+      <p class="hero-greeting reveal reveal-delay-1" data-i18n="hero.greeting">Je suis,</p>
+      <h1 class="hero-name reveal reveal-delay-2">
+        <span class="accent-text">HANDY</span>
+      </h1>
+      <p class="hero-role reveal reveal-delay-3">
+        <span id="typed-role"></span><span class="typed-cursor">|</span>
+      </p>
+      <p class="hero-desc reveal reveal-delay-4">
+        <span data-i18n="hero.desc">Développeur full-stack passionné par la technologie, le multimédia et l'entrepreneuriat. Je conçois des produits solides, des interfaces soignées et des architectures pensées pour durer.</span>
+      </p>
+
+      <div class="hero-actions reveal reveal-delay-5">
+        <!-- CV → ouvre preview in-site -->
+        <button class="btn-primary" id="open-cv-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+          <span data-i18n="hero.cv">Voir mon CV</span>
+        </button>
+        <!-- GitHub → preview in-site -->
+        <button class="btn-secondary" id="open-gh-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span data-i18n="hero.github">Voir GitHub</span>
+        </button>
+      </div>
+
+      <div class="hero-stats reveal">
+        <div>
+          <div class="hero-stat-value counter" data-count="15" data-suffix="+">0+</div>
+          <div class="hero-stat-label" data-i18n="stats.projects">Projets réalisés</div>
+        </div>
+        <div>
+          <div class="hero-stat-value counter" data-count="7" data-suffix=" ans">0 ans</div>
+          <div class="hero-stat-label" data-i18n="stats.freelance">Dev freelance</div>
+        </div>
+        <div>
+          <div class="hero-stat-value counter" data-count="6" data-suffix="+">0+</div>
+          <div class="hero-stat-label" data-i18n="stats.study">Ans d'études</div>
+        </div>
+      </div>
     </div>
+
+    <!-- Avatar (desktop) -->
+    <div class="hero-avatar-wrap" aria-hidden="true">
+      <div class="hero-avatar-bg"></div>
+      <div class="hero-avatar-ring"></div>
+      <img src="images/profil/pic.png" alt="Pierre Handy Charles" class="hero-avatar-img">
+    </div>
+  </div>
 </section>
 
-<!-- Section Compétences -->
-<section id="skills" class="p-5 text-white bg-black">
-    <div class="container">
-        <div class="max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
-            <div class="grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:items-center lg:gap-x-16">
-                <div class="mx-auto max-w-lg text-center lg:mx-0 ltr:lg:text-left rtl:lg:text-right">
-                    <div class="twelve">
-                        <h2 class="text-center">Compétences</h2>
-                    </div>
-                    <p class="mt-4 text-gray-600">Pendant plus de six ans d'études en informatique, j'ai acquis de nombreuses compétences sur des outils qui facilitent mon travail en tant que développeur.</p>
-                    <a href="documments/udemy_certificats.pdf" class="mt-8 inline-block rounded px-12 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400"
-                       style="background-color: #49a07e;" target="_blank" rel="noopener noreferrer">Télécharger mes certifications</a>
-
-                </div>
-                <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
-                    <a class="block rounded-xl border border-gray-100 p-4 text-center shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring" href="#">
-                        <span class="mx-auto inline-block rounded-lg bg-gray-50 p-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50">
-                                <path d="M 28.1875 0 C 30.9375 6.363281 18.328125 10.292969 17.15625 15.59375 C 16.082031 20.464844 24.648438 26.125 24.65625 26.125 C 23.355469 24.109375 22.398438 22.449219 21.09375 19.3125 C 18.886719 14.007813 34.535156 9.207031 28.1875 0 Z M 36.5625 8.8125 C 36.5625 8.8125 25.5 9.523438 24.9375 16.59375 C 24.6875 19.742188 27.847656 21.398438 27.9375 23.6875 C 28.011719 25.558594 26.0625 27.125 26.0625 27.125 C 26.0625 27.125 29.609375 26.449219 30.71875 23.59375 C 31.949219 20.425781 28.320313 18.285156 28.6875 15.75 C 29.039063 13.324219 36.5625 8.8125 36.5625 8.8125 Z M 19.1875 25.15625 C 19.1875 25.15625 9.0625 25.011719 9.0625 27.875 C 9.0625 30.867188 22.316406 31.089844 31.78125 29.25 C 31.78125 29.25 34.296875 27.519531 34.96875 26.875 C 28.765625 28.140625 14.625 28.28125 14.625 27.1875 C 14.625 26.179688 19.1875 25.15625 19.1875 25.15625 Z M 38.65625 25.15625 C 37.664063 25.234375 36.59375 25.617188 35.625 26.3125 C 37.90625 25.820313 39.84375 27.234375 39.84375 28.84375 C 39.84375 32.46875 34.59375 35.875 34.59375 35.875 C 34.59375 35.875 42.71875 34.953125 42.71875 29 C 42.71875 26.296875 40.839844 24.984375 38.65625 25.15625 Z M 16.75 30.71875 C 15.195313 30.71875 12.875 31.9375 12.875 33.09375 C 12.875 35.417969 24.5625 37.207031 33.21875 33.8125 L 30.21875 31.96875 C 24.351563 33.847656 13.546875 33.234375 16.75 30.71875 Z M 18.1875 35.9375 C 16.058594 35.9375 14.65625 37.222656 14.65625 38.1875 C 14.65625 41.171875 27.371094 41.472656 32.40625 38.4375 L 29.21875 36.40625 C 25.457031 37.996094 16.015625 38.238281 18.1875 35.9375 Z M 11.09375 38.625 C 7.625 38.554688 5.375 40.113281 5.375 41.40625 C 5.375 48.28125 40.875 47.964844 40.875 40.9375 C 40.875 39.769531 39.527344 39.203125 39.03125 38.9375 C 41.933594 45.65625 9.96875 45.121094 9.96875 41.15625 C 9.96875 40.253906 12.320313 39.390625 14.5 39.8125 L 12.65625 38.75 C 12.113281 38.667969 11.589844 38.636719 11.09375 38.625 Z M 44.625 43.25 C 39.226563 48.367188 25.546875 50.222656 11.78125 47.0625 C 25.542969 52.695313 44.558594 49.535156 44.625 43.25 Z"></path>
-                            </svg>
-                        </span>
-                        <h2 class="mt-2 font-bold">JAVA</h2>
-                    </a>
-
-                    <a class="block rounded-xl border border-gray-100 p-4 text-center shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring" href="#">
-                        <span class="mx-auto inline-block rounded-lg bg-gray-50 p-3">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" xml:space="preserve" viewBox="0 0 482.139 482.139">
-                               <path d="M69.826 105.072c-4.004 0-6.713.396-8.132.774v25.689c1.687.378 3.751.504 6.588.504 10.464 0 16.894-5.279 16.894-14.185 0-8.005-5.547-12.782-15.35-12.782zm179.322 12.782c0-8.006-5.549-12.782-15.352-12.782-4.004 0-6.715.396-8.133.774v25.689c1.67.378 3.75.504 6.588.504 10.434 0 16.897-5.279 16.897-14.185z"/><path d="M357.17 0H163.521c-28.29 0-51.316 23.041-51.316 51.315v9.504h-88.43c-11.428 0-20.68 9.251-20.68 20.677v105.295c0 11.426 9.252 20.678 20.68 20.678h88.43v223.355c0 28.305 23.026 51.315 51.316 51.315h264.221c28.275 0 51.301-23.01 51.301-51.315V121.449L357.17 0zM96.682 137.98c-6.715 6.32-16.643 9.158-28.273 9.158-2.586 0-4.887-.127-6.714-.378v31.094H42.213V92.039c6.068-1.024 14.595-1.796 26.589-1.796 12.12 0 20.788 2.317 26.589 6.966 5.547 4.381 9.297 11.616 9.297 20.126 0 8.512-2.837 15.745-8.006 20.645zm72.685-13.679V90.889h19.607v86.966h-19.607v-36.391h-32.402v36.391h-19.731V90.889h19.731v33.412h32.402zm258.375 326.412H163.521c-10.953 0-19.874-8.92-19.874-19.889V207.469h139.731c11.426 0 20.676-9.252 20.676-20.678V81.496c0-11.426-9.25-20.677-20.676-20.677h-139.73v-9.504c0-10.938 8.92-19.858 19.874-19.858l181.889-.189v67.234c0 19.637 15.934 35.586 35.588 35.586l65.863-.189.74 296.925c-.001 10.969-8.907 19.889-19.86 19.889zM206.185 177.855V92.039c6.051-1.024 14.594-1.796 26.572-1.796 12.133 0 20.771 2.317 26.602 6.966 5.549 4.381 9.268 11.616 9.268 20.126 0 8.512-2.836 15.745-7.975 20.645-6.713 6.32-16.674 9.158-28.275 9.158-2.584 0-4.916-.127-6.713-.378v31.094h-19.479z"/><path d="M296.019 286.965c0-4.713-2.412-9.111-6.383-11.647-3.973-2.539-8.984-2.87-13.256-.883l-76.531 35.555c-6.289 2.916-10.322 9.236-10.322 16.186 0 6.935 4.033 13.255 10.322 16.171l76.531 35.57c4.272 1.985 9.268 1.654 13.256-.883 3.971-2.537 6.383-6.934 6.383-11.662 0-5.484-3.248-10.449-8.275-12.654l-60.582-26.557 60.582-26.541c5.027-2.208 8.275-7.172 8.275-12.655zm64.366-38.677c-8.953 0-17.068 1.545-23.705 3.734-6.037 2.001-9.359 8.464-7.471 14.531 1.893 6.036 8.244 9.488 14.326 7.77 3.326-.93 6.762-1.449 9.883-1.449 10.244.409 14.973 5.139 14.973 12.309 0 6.981-5.328 13.539-11.898 21.323-9.236 11.08-12.719 21.749-12.09 32.183l.064 1.798c.076 1.985 1.701 3.546 3.688 3.546h20.031c2.033 0 3.688-1.656 3.688-3.688-.205-9.236 2.854-17.227 10.449-25.643 7.803-8.621 17.43-18.864 17.43-34.436-.001-17.022-12.31-31.978-39.368-31.978zm-2.856 105.374c-10.668 0-18.264 7.801-18.264 18.659 0 10.669 7.391 18.661 18.264 18.661 11.066 0 18.457-7.992 18.457-18.661-.236-10.858-7.39-18.659-18.457-18.659z"/>
-                           </svg>
-
-                        </span>
-                        <h2 class="mt-2 font-bold">PHP</h2>
-                    </a>
-
-
-                    <a class="block rounded-xl border border-gray-100 p-4 text-center shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring" href="#">
-                        <span class="mx-auto inline-block rounded-lg bg-gray-50 p-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" xml:space="preserve" viewBox="0 0 548.29 548.291">
-                                <path d="M276.043 244.216c-24.575 0-38.741 24.087-38.741 53.862-.241 30.228 14.407 53.382 38.5 53.382 24.323 0 38.512-22.92 38.512-54.091-.001-29.066-13.71-53.153-38.271-53.153z"/><path d="M486.2 196.116h-13.164V132.59c0-.399-.064-.795-.116-1.2-.021-2.52-.824-4.997-2.551-6.96L364.656 3.677c-.031-.031-.064-.044-.085-.075-.629-.704-1.364-1.29-2.141-1.796-.231-.154-.462-.283-.704-.419-.672-.365-1.386-.672-2.121-.893-.199-.052-.377-.134-.576-.186-.8-.19-1.629-.308-2.467-.308H96.757C84.893 0 75.256 9.649 75.256 21.502v174.613H62.093c-16.967 0-30.733 13.756-30.733 30.733V386.66c0 16.961 13.766 30.731 30.733 30.731h13.163V526.79c0 11.854 9.637 21.501 21.501 21.501h354.777c11.853 0 21.502-9.647 21.502-21.501V417.392H486.2c16.977 0 30.729-13.771 30.729-30.731V226.849c.001-16.977-13.752-30.733-30.729-30.733zM96.757 21.502H345.81v110.006c0 5.943 4.818 10.751 10.751 10.751h94.973v53.861H96.757V21.502zM353.033 376.96l-10.394 27.884c-22.666-6.619-41.565-13.479-62.828-22.445-3.527-1.418-7.317-2.132-11.094-2.362-35.909-2.352-69.449-28.819-69.449-80.778 0-47.711 30.236-83.623 77.71-83.623 48.675 0 75.351 36.854 75.351 80.317 0 36.142-16.766 61.638-37.785 71.091v.945c12.284 3.539 25.975 6.378 38.489 8.971zm-280.121-6.844 7.328-29.764c9.69 4.96 24.554 9.915 39.917 9.915 16.525 0 25.271-6.84 25.271-17.228 0-9.928-7.56-15.597-26.691-22.442-26.457-9.217-43.696-23.858-43.696-47.014 0-27.163 22.68-47.948 60.231-47.948 17.954 0 31.184 3.791 40.623 8.03l-8.021 29.061c-6.375-3.076-17.711-7.564-33.3-7.564-15.599 0-23.163 7.079-23.163 15.357 0 10.15 8.977 14.646 29.533 22.447 28.108 10.394 41.332 25.023 41.332 47.464 0 26.699-20.557 49.365-64.253 49.365-18.179-.01-36.124-4.735-45.111-9.679zm378.622 150.846H96.757v-103.57h354.777v103.57zm23.853-143.534h-99.455V218.231h36.158v128.97h63.297v30.227z"/>
-                            </svg>
-                        </span>
-                        <h2 class="mt-2 font-bold">SQL</h2>
-                    </a>
-
-                    <a class="block rounded-xl border border-gray-100 p-4 text-center shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring" href="#">
-                        <span class="mx-auto inline-block rounded-lg bg-gray-50 p-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.744 18.45798c-.482 0-.872-.39204-.872-.87656s.39-.87555.872-.87555.872.39103.872.87555c0 .48452-.39.87656-.872.87656M10.072 20c5.078 0 4.761-2.21351 4.761-2.21351l-.006-2.29292H9.982v-.68858h6.769S20 15.17591 20 10.02614c0-5.14978-2.835-4.96784-2.835-4.96784h-1.693v2.39043s.091 2.84982-2.79 2.84982H7.876s-2.7-.04322-2.7 2.62365v4.40892S4.766 20 10.072 20M7.257 1.54202c.482 0 .871.39204.871.87656s-.389.87555-.871.87555-.872-.39103-.872-.87555c0-.48452.39-.87656.872-.87656M9.928 0c-5.077 0-4.76 2.21351-4.76 2.21351l.006 2.29292h4.845v.68858h-6.77S0 4.82409 0 9.97386c0 5.14978 2.836 4.96784 2.836 4.96784h1.692v-2.39043s-.091-2.84982 2.791-2.84982h4.805s2.7.04322 2.7-2.62365V2.66888S15.234 0 9.928 0"/>
-                            </svg>
-                        </span>
-                        <h2 class="mt-2 font-bold">Python</h2>
-                    </a>
-
-                    <a class="block rounded-xl border border-gray-100 p-4 text-center shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring" href="#">
-                        <span class="mx-auto inline-block rounded-lg bg-gray-50 p-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 73 73">
-                                <g fill="none"><rect width="71" height="71" x="-1" y="-1" fill="#000" stroke="#000" stroke-width="2" rx="14" transform="translate(2 2)"/>
-                                    <path fill="#FFF" d="M40.43875 45.002313h-4.563563v-13.2825c-.333374.116812-.76125.244125-1.3545.380624.200813.5775.354375 1.119563.354375 1.623563 0 1.613063-.486937 3.017438-1.45425 4.213125-.97125 1.195687-2.223374 1.908375-3.759 2.132813-1.008.149624-1.512.693-1.512 1.626187 0 .3255.161438.653625.489563.98175.429187.476438 1.05525.780938 1.887375.903 3.602812.557813 5.400937 2.054063 5.400937 4.497937 0 3.906-2.333624 5.857688-6.994312 5.857688-1.912313 0-3.499125-.34125-4.731563-1.0185-1.561875-.857062-2.363812-2.206313-2.363812-4.043812 0-2.114438 1.089375-3.566063 3.472875-4.345688v-.0735c-.861-.53025-1.24425-1.336125-1.24425-2.418937 0-1.410938.38325-2.292938 1.24425-2.647313v-.076125C24.449875 39.037 23.791 38.407 23.161 37.42525c-.70875-1.059188-1.057875-2.18925-1.057875-3.399375 0-1.815188.644438-3.324562 1.930688-4.534687C25.267563 28.3585 26.738875 27.7915 28.453 27.7915c1.232437 0 2.327063.300563 3.384938.905625 1.183874 0 2.560687-.292687 4.039874-.868875v-.791438h4.563563v17.9655h-.002625Zm-.321562-20.800501c-.518438.553876-1.127438.830813-1.83225.830813-.732375 0-1.3545-.276937-1.871625-.830813-.515813-.553874-.774376-1.210124-.774376-1.964812 0-.779625.255938-1.449.774376-2.001562.517124-.555188 1.140562-.830813 1.871624-.830813.702188 0 1.3125.275625 1.83225.830813.515813.553875.777 1.22325.777 2.001562 0 .754688-.261187 1.410938-.777 1.964813Zm11.389875 20.06025c-.863625.507938-2.017313.758626-3.327188.758626-1.8375 0-3.0765-.65625-3.781313-1.96875-.53025-.979126-.796687-2.529188-.796687-4.644938v-6.47325h-2.250937v-4.165875h2.250937v-2.4045h4.074c.021.59325.051188 1.855875.064313 2.4045h3.49125v4.165875h-3.486v6.663563c0 1.686562.546 2.531812 1.657687 2.531812.779625 0 1.418813-.211313 2.107875-.641813v3.776063h-.003937v-.001313Z"/><path fill="#000" d="M28.602625 31.267c-1.5855 0-2.379562.933187-2.379562 2.796938 0 1.73775.794062 2.606625 2.379562 2.606625 1.536938 0 2.303438-.883313 2.303438-2.644688 0-.732375-.175876-1.361063-.527625-1.888688-.429188-.578812-1.019813-.870187-1.775813-.870187Zm-2.794313 17.38275c0 1.305937 1.106438 1.962187 3.32325 1.962187 1.939876 0 2.9085-.681187 2.9085-2.040937 0-1.284937-1.056562-1.928062-3.173624-1.928062-2.039625.002624-3.059438.669375-3.058125 2.006812Z"/></g>
-                            </svg>
-                        </span>
-                        <h2 class="mt-2 font-bold">Git</h2>
-                    </a>
-
-                    <a class="block rounded-xl border border-gray-100 p-4 text-center shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring" href="#">
-                        <span class="mx-auto inline-block rounded-lg bg-gray-50 p-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 -5 34 34">
-                                <path d="M15.21 10.923V7.764h3.533v3.159zM18.743 0v3.267H15.21V0zm4.177 7.77v3.159h-3.533V7.77zm-8.353-3.855v3.213h-3.533V3.915zm4.177 0v3.213H15.21V3.915zm14.834 5.348.696.482-.482.914c-.504.998-1.377 1.749-2.434 2.081l-.029.008c-.662.205-1.423.324-2.211.324-.07 0-.139-.001-.208-.003h.01c-1.36 3.409-3.692 6.19-6.652 8.072l-.068.041c-2.937 1.771-6.484 2.819-10.276 2.819-.2 0-.398-.003-.597-.009l.029.001q-5.89 0-8.889-3.534C1.51 19.274.787 17.856.395 16.307l-.016-.076C.14 15.367.002 14.374.002 13.35c0-.551.04-1.094.117-1.624l-.007.06h23.294c.044.001.096.002.148.002.885 0 1.719-.219 2.451-.605l-.029.014c-.416-.669-.663-1.481-.663-2.35 0-.153.008-.304.023-.453l-.002.019c.049-1.036.361-1.991.871-2.809l-.014.025.536-.75.75.536c1.139.766 1.944 1.956 2.189 3.339l.005.031c.39-.062.841-.097 1.299-.097.307 0 .61.016.909.047l-.037-.003c.647.024 1.245.22 1.753.542l-.014-.009zM6.215 7.764v3.159H2.681V7.764zm4.177 0v3.159H6.86V7.764zm4.177 0v3.159h-3.535V7.764zm-4.178-3.855v3.213H6.86V3.909z"/>
-                            </svg>
-                        </span>
-                        <h2 class="mt-2 font-bold">Docker</h2>
-                    </a>
-                </div>
-            </div>
-        </div>
+<!-- ─────────────────── SKILLS ────────────────────────────── -->
+<div id="skills" class="skills-section">
+  <!-- Header -->
+  <div class="skills-header">
+    <div>
+      <div class="section-label reveal" data-i18n="skills.label">Stack technique</div>
+      <h2 class="section-title reveal reveal-delay-1" data-i18n="skills.title">Compétences</h2>
     </div>
-</section>
-
-
-
-        <!-- Section Projets -->
-<section id="projects" class="p-5 sec-project">
-    <div class="container">
-        <div class="twelve">
-        <h2 class="text-center text-light">Projets</h2>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body">
-                        <img src="images/bibliot/pic1.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h3 class="card-title fw-bold">Bibliothèque d'échange d'ouvrage</h3>
-
-
-                            <a tabindex="0"
-                               class="link-opacity-100 text-decoration-underline text-danger message-popover"
-                               role="button"
-                               data-bs-toggle="popover"
-                               data-bs-trigger="focus"
-                               data-bs-title="Informations supplémentaires"
-                               data-bs-content="C'est une mini-bibliothèque qui fonctionne d’une manière différente des autres bibliothèques.
-   Il n’y a pas de notion d’emprunt, et donc pas de date de retour. Les professeurs détiennent les livres aussi longtemps
-   qu’ils le jugent nécessaire, et les livres passent d’un usager à un autre sur une simple entente entre les usagers.">
-                                En savoir plus
-                            </a>
-
-                            <br> <br> <br>
-                            <!-- Modal -->
-                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-xl">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Démo du site</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Carrousel -->
-                                            <div id="carouselExampleCaptions" class="carousel slide">
-                                                <div class="carousel-indicators">
-                                                    <!-- Indicateurs dynamiques pour chaque image -->
-                                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
-                                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="6" aria-label="Slide 7"></button>
-                                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="7" aria-label="Slide 8"></button>
-                                                </div>
-
-                                                <div class="carousel-inner">
-                                                    <!-- Images du carrousel -->
-                                                    <div class="carousel-item active">
-                                                        <img src="images/bibliot/pic1.png" class="d-block w-100" alt="Page de connexion">
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5>Page de connexion</h5>
-                                                            <p>Pour se connecter, il faut une clé spéciale à demander à l'administrateur.</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="carousel-item">
-                                                        <img src="images/bibliot/pic2.png" class="d-block w-100" alt="Page profil">
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5>Page profil</h5>
-                                                            <p>Description du profil utilisateur.</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="carousel-item">
-                                                        <img src="images/bibliot/pic3.png" class="d-block w-100" alt="Banque de livres">
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5>Banque de livres</h5>
-                                                            <p>L'utilisateur peut ajouter des livres ou gérer ceux qui lui ont été transférés.</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="carousel-item">
-                                                        <img src="images/bibliot/pic4.png" class="d-block w-100" alt="Catalogue de livres">
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5>Catalogue de livres</h5>
-                                                            <p>Page listant tous les livres avec une recherche avancée.</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="carousel-item">
-                                                        <img src="images/bibliot/pic5.png" class="d-block w-100" alt="Page de notifications">
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5>Notifications utilisateur</h5>
-                                                            <p>Suivi des demandes d'échange et gestion des échanges annulés ou acceptés.</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="carousel-item">
-                                                        <img src="images/bibliot/pic6.png" class="d-block w-100" alt="Panel admin">
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5>Panel admin</h5>
-                                                            <p>Statistiques sur l'utilisation du site.</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="carousel-item">
-                                                        <img src="images/bibliot/pic7.png" class="d-block w-100" alt="Gestion des livres admin">
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5>Gestion des livres (Admin)</h5>
-                                                            <p>Interface pour la gestion des livres du catalogue.</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="carousel-item">
-                                                        <img src="images/bibliot/pic8.png" class="d-block w-100" alt="Notifications admin">
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5>Notifications admin</h5>
-                                                            <p>Gestion des demandes de clé et autres notifications importantes.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Boutons de navigation -->
-                                                <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon text-bg-dark" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Précédent</span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon text-bg-dark" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Suivant</span>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                            <a href="https://github.com/Handy-up/bibliothequerosemont.git" class="btn btn-dark" target="_blank">Voir le projet GitHub</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <!-- Bouton pour ouvrir le modal -->
-                            <div class="align-items-lg-start">
-                                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    Voir un démo
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Carte pour le projet Java - Éditeur de texte -->
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body">
-                        <img src="images/javaEdit/pic1.png" class="card-img-top" alt="Éditeur de texte">
-                        <div class="card-body">
-                            <h3 class="card-title fw-bold">Éditeur de texte Java</h3>
-
-                            <a tabindex="0"
-                               class="link-opacity-100 text-decoration-underline text-danger message-popover2"
-                               role="button"
-                               data-bs-toggle="popover"
-                               data-bs-trigger="focus"
-                               data-bs-title="Informations supplémentaires"
-                               data-bs-content="Un éditeur de texte simple développé en Java. Il permet d'ouvrir, d'éditer et de sauvegarder des fichiers texte.">
-                                En savoir plus
-                            </a>
-
-
-                            <!-- Modal pour le projet Java -->
-                            <div class="modal fade" id="javaEditorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="javaEditorModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-xl">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="javaEditorModalLabel">Démo de l'Éditeur de texte</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Carrousel -->
-                                            <div id="javaEditorCarousel" class="carousel slide">
-                                                <div class="carousel-indicators">
-                                                    <button type="button" data-bs-target="#javaEditorCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                                    <button type="button" data-bs-target="#javaEditorCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                    <button type="button" data-bs-target="#javaEditorCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                                </div>
-
-                                                <div class="carousel-inner">
-                                                    <div class="carousel-item active">
-                                                        <img src="images/editeurTexte/pic1.png" class="d-block w-100" alt="Écran principal">
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5>Écran principal</h5>
-                                                            <p>Interface principale de l'éditeur de texte.</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="carousel-item">
-                                                        <img src="images/editeurTexte/pic2.png" class="d-block w-100" alt="Fonctionnalités">
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5>Fonctionnalités</h5>
-                                                            <p>Présentation des fonctionnalités de l'éditeur.</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="carousel-item">
-                                                        <img src="images/editeurTexte/pic3.png" class="d-block w-100" alt="Options de sauvegarde">
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5>Options de sauvegarde</h5>
-                                                            <p>Comment sauvegarder votre travail.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <button class="carousel-control-prev" type="button" data-bs-target="#javaEditorCarousel" data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon text-bg-dark" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Précédent</span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#javaEditorCarousel" data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon text-bg-dark" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Suivant</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                            <a href="https://github.com/Handy-up/editeur-texte.git" class="btn btn-dark" target="_blank">Voir le projet GitHub</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <!-- Bouton pour ouvrir le modal -->
-                            <div class="align-items-lg-start">
-                                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#javaEditorModal">
-                                    Voir une démo
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Carte pour le projet Android - Jeu du pendu -->
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body">
-                        <img src="images/JeuPendu/pic1.png" class="card-img-top" alt="Jeu du pendu">
-                        <div class="card-body">
-                            <h3 class="card-title fw-bold">Jeu du pendu Android</h3>
-
-                            <a tabindex="0"
-                               class="link-opacity-100 text-decoration-underline text-danger message-popover"
-                               role="button"
-                               data-bs-toggle="popover"
-                               data-bs-trigger="focus"
-                               data-bs-title="Un jeu du pendu classique développé pour Android,
-                                où les utilisateurs doivent deviner des mots lettre par lettre avant que la silhouette du pendu ne soit complètement dessinée. Le jeu inclut un minuteur intégré, augmentant le défi en imposant une limite de temps pour deviner chaque mot.
-                                Cela oblige les joueurs à réfléchir rapidement et ajoute une touche de pression supplémentaire.
-                                Développé en Kotlin">
-                                En savoir plus
-                            </a>
-                            <p class="card-text"> </p>
-
-                            <!-- Modal pour le projet Android -->
-                            <div class="modal fade" id="penduModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="penduModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-xl">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="penduModalLabel">Démo du Jeu du Pendu</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
-                                        </div>
-                                        <div class="modal-body">
-<!--                                            Video visualiseur-->
-                                            <div class="embed-responsive embed-responsive-16by9">
-                                                <video class="embed-responsive-item" controls>
-                                                    <source src="images/JeuPendu/demoPenfu.mp4" type="video/mp4">
-                                                    <source src="images/JeuPendu/pic1.png" type="video/ogg">
-                                                    Your browser does not support the video tag.
-                                                </video>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                            <a href="https://github.com/Handy-up/Jeu-Mobile-Pendu.git" class="btn btn-dark" target="_blank">Voir le projet GitHub</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <!-- Bouton pour ouvrir le modal -->
-                            <div class="align-items-lg-start">
-                                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#penduModal">
-                                    Voir une démo
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-<!--            possibilité d'ajout d'autre projet -->
-        </div>
+    <div>
+      <p class="section-desc reveal reveal-delay-2">
+        <span data-i18n="skills.desc">Mon stack principal tourne autour de l'écosystème JavaScript moderne — du web au mobile, avec des outils de production robustes.</span>
+      </p>
+      <button class="btn-accent reveal reveal-delay-3" id="open-cert-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span data-i18n="skills.certifications">Voir mes certifications</span>
+      </button>
     </div>
-</section>
+  </div>
 
-<!-- Section Formations -->
-<section id="education" class="p-5 text-white ">
-    <div class="container">
-        <div class="twelve">
-        <h2 class="text-center">Formations</h2>
-        </div>
+  <!-- Featured stack — 4 colonnes -->
+  <div class="skills-featured">
 
-        <section class="bg-white">
-            <div class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-
-                <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
-                    <blockquote class="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
-                        <div class="flex items-center gap-4">
-                            <img
-                                    alt="ESIH - École Supérieure d'Infotronique d'Haïti"
-                                    src="https://images.squarespace-cdn.com/content/v1/604f4f7bdad32a12b24382e6/ea68a3dd-8b45-4e43-a00e-c79a56213ef7/LOGO+FINALE+WEB+.png?format=750w"
-                                    class="w-14 h-14 object-contain"
-                            />
-
-                            <div>
-                                <p class="mt-0.5 text-lg font-bold text-gray-900">
-                                    ESIH - École Supérieure d'Infotronique d'Haïti
-                                    <span class="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
-  <span class="whitespace-nowrap text-sm">Pas terminé</span>
-</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <p class="mt-4 text-gray-700">
-                            <span class="font-semibold">3 ans</span> en
-                            <span class="font-semibold">Sciences informatiques</span> —
-                            <span class="italic">ESIH - École Supérieure d'Infotronique d'Haïti</span>
-                            (<span class="font-semibold">2018 - 2021</span>)
-<!--                            Badge alert-->
-                        </p>
-                    </blockquote>
-
-
-
-                    <blockquote class="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
-                        <div class="flex items-center gap-4">
-                            <img
-                                    alt="Logo Udemy"
-                                    src="https://frontends.udemycdn.com/frontends-homepage/staticx/udemy/images/v7/logo-udemy.svg"
-                                    class="w-14 h-14 object-contain"
-                            />
-
-                            <div>
-                                <p class="mt-0.5 text-lg font-bold text-gray-900">
-                                    Udemy <!--                            Badge alert-->
-                                    <span class="inline-flex items-center justify-center rounded-full bg-purple-100 px-2.5 py-0.5 text-amber-700">
-  <span class="whitespace-nowrap text-sm">Continue</span>
-</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <p class="mt-4 text-gray-700">
-                            Je suis des <span class="font-semibold">cours activement sur Udemy</span> depuis
-                            <span class="font-semibold">2022</span>. J'ai terminé plusieurs formations, notamment :
-                        </p>
-
-                        <ul class="list-disc list-inside mt-2 text-gray-700">
-                            <li><span class="font-semibold">Développement back-end avec SQL</span></li>
-                            <li><span class="font-semibold">Débuter avec Git</span></li>
-                            <li><span class="font-semibold">Les bases de Docker</span></li>
-                            <li><span class="font-semibold">JavaScript avancé</span></li>
-                            <li>...et bien d'autres !</li>
-                        </ul>
-                    </blockquote>
-
-
-                    <blockquote class="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
-                        <div class="flex items-center gap-4">
-                            <img
-                                    alt="Logo du Cégep de Rosemont"
-                                    src="https://www.crosemont.qc.ca/assets/Logo+Rosemont.png"
-                                    class="w-20 h-20 object-contain"
-                            />
-
-                            <div>
-                                <p class="mt-0.5 text-lg font-bold text-gray-900">
-                                    Cégep de Rosemont
-                                    <span class="inline-flex items-center justify-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-white-700">
-  <span class="whitespace-nowrap text-sm">En cours</span>
-</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <p class="mt-4 text-gray-700">
-                            <span class="font-semibold">3 ans et demi</span> en <span class="font-semibold">Développement d’applications web et mobile</span> —
-                            <span class="font-semibold">DEC</span>, <span class="italic">Cégep de Rosemont</span>
-                            (<span class="font-semibold">2022 - 2025</span>)
-                        </p>
-                    </blockquote>
-
-                </div>
-            </div>
-        </section>
+    <!-- React -->
+    <div class="skill-featured-card reveal"
+      style="--skill-color: rgba(97,218,251,0.25); --skill-glow: radial-gradient(circle at 50% 0%, rgba(97,218,251,0.07), transparent 60%); --skill-color-raw: #61DAFB;">
+      <div class="skill-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="2.5" fill="#61DAFB"/>
+          <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61DAFB" stroke-width="1.2" fill="none"/>
+          <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61DAFB" stroke-width="1.2" fill="none" transform="rotate(60 12 12)"/>
+          <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61DAFB" stroke-width="1.2" fill="none" transform="rotate(120 12 12)"/>
+        </svg>
+      </div>
+      <div class="skill-featured-name">React</div>
+      <div class="skill-featured-desc">Interfaces web&nbsp;modernes</div>
     </div>
-</section>
 
-<!-- Section Contact -->
-<section id="contacts" class="p-5 text-white bg-black">
-    <div class="container mx-auto max-w-screen-md">
-        <div class="twelve">
-        <h2 class="text-center text-3xl font-bold mb-8">Contact</h2>
-        </div>
-        <div class="rounded-lg bg-white p-8 shadow-lg">
-            <form action="#" class="space-y-6">
-                <div>
-                    <label class="sr-only" for="nom">Nom</label>
-                    <input
-                            class="w-full rounded-lg border-gray-300 p-3 text-sm bg-black text-white"
-                            placeholder="Votre nom"
-                            type="text"
-                            id="nom"
-                    />
-                </div>
-
-                <div>
-                    <label class="sr-only" for="email">Email</label>
-                    <input
-                            class="w-full rounded-lg border-gray-300 p-3 text-sm bg-black text-white"
-                            placeholder="Votre adresse email"
-                            type="email"
-                            id="email"
-                    />
-                </div>
-
-
-                <div>
-                    <label class="sr-only" for="message">Message</label>
-                    <textarea
-                            class="w-full rounded-lg border-gray-300 p-3 text-sm bg-black text-white"
-                            placeholder="Votre message"
-                            rows="6"
-                            id="message"
-                    ></textarea>
-                </div>
-
-                <div class="text-center">
-                    <button
-                            type="submit"
-                            class="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
-                    >
-                        Envoyer
-                    </button>
-                </div>
-            </form>
-        </div>
+    <!-- Next.js -->
+    <div class="skill-featured-card reveal reveal-delay-1"
+      style="--skill-color: rgba(255,255,255,0.15); --skill-glow: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.05), transparent 60%); --skill-color-raw: #fff;">
+      <div class="skill-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 01-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 00-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.859 8.292 8.208 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 00-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 01-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 01-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 01.174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 004.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 002.466-2.163 11.944 11.944 0 002.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 00-2.499-.523A33.119 33.119 0 0011.573 0zm4.069 7.217c.347 0 .408.005.486.047a.473.473 0 01.237.277c.018.06.023 1.365.018 4.304l-.006 4.218-.744-1.14-.746-1.14v-3.066c0-1.982.01-3.097.023-3.15a.478.478 0 01.233-.296c.096-.05.13-.054.5-.054z"/>
+        </svg>
+      </div>
+      <div class="skill-featured-name">Next.js</div>
+      <div class="skill-featured-desc">Full-stack &amp; SSR/SSG</div>
     </div>
-</section>
 
-
-
-<!-- Footer -->
-<footer class="bg-black container-fluid">
-    <div class="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <div class="text-teal-600">
-                Handy.dev
-            </div>
-
-            <ul class="mt-8 flex justify-start gap-6 sm:mt-0 sm:justify-end">
-                <li>
-                    <a href="https://facebook.com" rel="noreferrer" target="_blank" class="text-gray-700 transition hover:opacity-75">
-                        <span class="sr-only">Facebook</span>
-                        <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/>
-                        </svg>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://instagram.com" rel="noreferrer" target="_blank" class="text-gray-700 transition hover:opacity-75">
-                        <span class="sr-only">Instagram</span>
-                        <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"/>
-                        </svg>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://twitter.com" rel="noreferrer" target="_blank" class="text-gray-700 transition hover:opacity-75">
-                        <span class="sr-only">Twitter</span>
-                        <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.83 2.84 8.233 8.233 0 01-5.092 1.75 8.37 8.37 0 01-.977-.057 11.598 11.598 0 006.29 1.843" />
-                        </svg>
-                    </a>
-                </li>
-            </ul>
-        </div>
+    <!-- React Native -->
+    <div class="skill-featured-card reveal reveal-delay-2"
+      style="--skill-color: rgba(97,218,251,0.2); --skill-glow: radial-gradient(circle at 50% 0%, rgba(97,218,251,0.06), transparent 60%); --skill-color-raw: #61DAFB;">
+      <div class="skill-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="2.5" fill="#61DAFB"/>
+          <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61DAFB" stroke-width="1.2" fill="none" transform="rotate(30 12 12)"/>
+          <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61DAFB" stroke-width="1.2" fill="none" transform="rotate(90 12 12)"/>
+          <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61DAFB" stroke-width="1.2" fill="none" transform="rotate(150 12 12)"/>
+        </svg>
+      </div>
+      <div class="skill-featured-name">React Native</div>
+      <div class="skill-featured-desc">Apps iOS &amp; Android</div>
     </div>
+
+    <!-- JavaScript -->
+    <div class="skill-featured-card reveal reveal-delay-3"
+      style="--skill-color: rgba(247,223,30,0.2); --skill-glow: radial-gradient(circle at 50% 0%, rgba(247,223,30,0.06), transparent 60%); --skill-color-raw: #F7DF1E;">
+      <div class="skill-icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect width="24" height="24" rx="3" fill="#F7DF1E"/>
+          <path d="M6.5 18.5c.3.5.7.9 1.5.9 1 0 1.5-.5 1.5-1.4V12h2v5.9c0 2.1-1.3 3.1-3.1 3.1-1.6 0-2.6-.8-3-2l1.1-.5zM14 18.4c.4.7 1 1.1 1.9 1.1 1 0 1.6-.5 1.6-1.2 0-.8-.6-1.1-1.7-1.6l-.6-.2c-1.7-.7-2.8-1.6-2.8-3.4 0-1.7 1.3-3 3.3-3 1.5 0 2.5.5 3.2 1.7l-1.7 1.1c-.4-.7-.8-1-1.5-1-.7 0-1.1.4-1.1 1 0 .7.4 1 1.5 1.4l.6.2c2 .9 3.1 1.7 3.1 3.6 0 2-1.6 3.2-3.8 3.2-2.1 0-3.5-1-4.2-2.4l1.8-1z" fill="#000"/>
+        </svg>
+      </div>
+      <div class="skill-featured-name">JavaScript</div>
+      <div class="skill-featured-desc">Langage principal ES6+</div>
+    </div>
+  </div>
+
+  <!-- Supporting tools — chips -->
+  <div class="skills-tools">
+    <!-- TypeScript -->
+    <div class="skill-chip reveal">
+      <svg viewBox="0 0 24 24" fill="#3178C6"><rect width="24" height="24" rx="3" fill="#3178C6"/><path d="M3 12h18M11.5 6l-2.5 6 2.5 6M12.5 6l2.5 6-2.5 6" stroke="none"/><text x="3.5" y="16.5" font-family="Arial" font-weight="bold" font-size="9" fill="#fff">TS</text></svg>
+      TypeScript
+    </div>
+    <!-- Node.js -->
+    <div class="skill-chip reveal reveal-delay-1">
+      <svg viewBox="0 0 24 24" fill="#339933"><path d="M12 1.85c-.27 0-.55.07-.78.2L2.78 7.08c-.48.28-.78.78-.78 1.33v9.17c0 .55.3 1.05.78 1.33l8.44 4.83c.45.26 1.01.24 1.44 0l8.44-4.83c.48-.28.78-.78.78-1.33V8.41c0-.55-.3-1.05-.78-1.33L12.78 2.05c-.23-.13-.51-.2-.78-.2zM12 4.2l6.67 3.83L12 11.83 5.33 8.03 12 4.2zm-6.5 5.6l5.5 3.17v6.33L5.5 15.97V9.8zm13 0v6.17L13 19.3v-6.33l5.5-3.17z"/></svg>
+      Node.js
+    </div>
+    <!-- Prisma -->
+    <div class="skill-chip reveal reveal-delay-2">
+      <svg viewBox="0 0 24 24" fill="var(--text-secondary)"><path d="M21.8 18.4L13.1 1c-.3-.6-1-.9-1.6-.5L1.3 7.3c-.6.4-.8 1.1-.4 1.7l8.9 14.6c.3.5.9.7 1.4.5l9.8-3.7c.7-.3 1.1-1.1.8-2zM12.5 3.4l7.2 15.5-8.2 3.1-7.5-12.4 8.5-6.2z"/></svg>
+      Prisma
+    </div>
+    <!-- Git -->
+    <div class="skill-chip reveal reveal-delay-1">
+      <svg viewBox="0 0 24 24" fill="#F05032"><path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.604 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.604-.406-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg>
+      Git
+    </div>
+    <!-- Docker -->
+    <div class="skill-chip reveal reveal-delay-2">
+      <svg viewBox="0 0 24 24" fill="#2496ED"><path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.186.186 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"/></svg>
+      Docker
+    </div>
+    <!-- Kotlin -->
+    <div class="skill-chip reveal reveal-delay-3">
+      <svg viewBox="0 0 24 24" fill="url(#kt)">
+        <defs><linearGradient id="kt" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7F52FF"/><stop offset="100%" stop-color="#E44857"/></linearGradient></defs>
+        <path d="M24 24H0V0h24L12 12z"/>
+      </svg>
+      Kotlin
+    </div>
+    <!-- SQL -->
+    <div class="skill-chip reveal reveal-delay-2">
+      <svg viewBox="0 0 24 24" fill="var(--text-secondary)"><path d="M12 2C6.48 2 2 4.02 2 6.5v11C2 19.98 6.48 22 12 22s10-2.02 10-4.5v-11C22 4.02 17.52 2 12 2zm0 2c4.42 0 8 1.57 8 3.5S16.42 11 12 11 4 9.43 4 7.5 7.58 4 12 4zM4 10.17C5.74 11.3 8.7 12 12 12s6.26-.7 8-1.83V12c0 1.93-3.58 3.5-8 3.5S4 13.93 4 12v-1.83zm0 4.5C5.74 15.8 8.7 16.5 12 16.5s6.26-.7 8-1.83V17c0 1.93-3.58 3.5-8 3.5S4 18.93 4 17v-2.33z"/></svg>
+      SQL / PostgreSQL
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────── PROJECTS ──────────────────────────── -->
+<div class="section-projects-wrap">
+  <div id="projects" class="projects-inner">
+    <div class="section-label reveal" data-i18n="projects.label">Travaux récents</div>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="projects.title">Projets</h2>
+    <p class="section-desc reveal reveal-delay-2">
+      <span data-i18n="projects.desc">Des projets concrets, construits pour résoudre de vrais problèmes. Chaque ligne de code pense à l'expérience utilisateur.</span>
+    </p>
+
+    <div class="projects-grid">
+
+      <!-- Projet 1 -->
+      <div class="project-card reveal">
+        <div class="project-img-wrap">
+          <img src="images/bibliot/cover_biblio.png" alt="Bibliothèque d'échange" loading="lazy">
+          <div class="project-img-overlay">
+            <button class="project-overlay-btn" data-modal="biblio">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span data-i18n="projects.view">Voir le projet</span>
+            </button>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">PHP</span>
+            <span class="project-tag">SQL</span>
+            <span class="project-tag">Bootstrap</span>
+          </div>
+          <h3 class="project-title">Bibliothèque d'échange d'ouvrage</h3>
+          <p class="project-desc" data-i18n="project.biblio.desc">Plateforme de partage de livres entre usagers sur entente mutuelle. Panel admin complet avec statistiques et gestion des clés d'accès.</p>
+          <div class="project-footer">
+            <button class="project-demo-btn" data-modal="biblio" data-i18n="projects.demo">Voir la démo</button>
+            <button class="project-gh-link" data-preview-url="https://github.com/Handy-up/bibliothequerosemont" data-preview-title="Bibliothèque d'échange d'ouvrage">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projet 2 -->
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-img-wrap">
+          <img src="images/javaEdit/cover_edit_text.png" alt="Éditeur de texte Java" loading="lazy">
+          <div class="project-img-overlay">
+            <button class="project-overlay-btn" data-modal="javaEdit">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span data-i18n="projects.view">Voir le projet</span>
+            </button>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Java</span>
+            <span class="project-tag">Swing</span>
+            <span class="project-tag">Desktop</span>
+          </div>
+          <h3 class="project-title">Éditeur de texte Java</h3>
+          <p class="project-desc" data-i18n="project.editor.desc">Application desktop développée en Java avec interface Swing. Ouverture, édition, sauvegarde avec recherche et remplacement intégrés.</p>
+          <div class="project-footer">
+            <button class="project-demo-btn" data-modal="javaEdit" data-i18n="projects.demo">Voir la démo</button>
+            <button class="project-gh-link" data-preview-url="https://git.dti.crosemont.quebec/hpierre/editeur_java" data-preview-title="Éditeur de texte Java">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projet 3 -->
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-img-wrap">
+          <img src="images/JeuPendu/coverPendu.png" alt="Jeu du pendu Android" loading="lazy">
+          <div class="project-img-overlay">
+            <button class="project-overlay-btn" data-modal="pendu">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span data-i18n="projects.view">Voir le projet</span>
+            </button>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Kotlin</span>
+            <span class="project-tag">Android</span>
+            <span class="project-tag">Mobile</span>
+          </div>
+          <h3 class="project-title">Jeu du pendu Android</h3>
+          <p class="project-desc" data-i18n="project.pendu.desc">Jeu du pendu classique en Kotlin avec minuteur intégré, niveaux de difficulté et design mobile-first pensé pour l'UX.</p>
+          <div class="project-footer">
+            <button class="project-demo-btn" data-modal="pendu" data-i18n="projects.demo">Voir la démo</button>
+            <button class="project-gh-link" data-preview-url="https://github.com/Handy-up/Jeu-Mobile-Pendu" data-preview-title="Jeu du pendu Android">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────── EDUCATION ─────────────────────────── -->
+<div class="section-edu-wrap">
+  <div id="education" class="edu-inner">
+    <div class="section-label reveal" data-i18n="education.label">Parcours académique</div>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="education.title">Formations</h2>
+
+    <div class="edu-grid">
+
+      <!-- ESIH -->
+      <div class="edu-card reveal">
+        <img src="https://images.squarespace-cdn.com/content/v1/604f4f7bdad32a12b24382e6/ea68a3dd-8b45-4e43-a00e-c79a56213ef7/LOGO+FINALE+WEB+.png?format=750w"
+             alt="ESIH" class="edu-logo">
+        <div class="edu-title">ESIH — École Supérieure d'Infotronique d'Haïti</div>
+        <span class="edu-badge edu-badge-amber">Pas terminé</span>
+        <p class="edu-desc">
+          <strong>3 ans</strong> en <strong>Sciences informatiques</strong> —
+          ESIH, Haïti <strong>(2018–2021)</strong>.
+          Fondations solides en algorithmique, systèmes, réseaux et développement logiciel.
+        </p>
+      </div>
+
+      <!-- Udemy -->
+      <div class="edu-card reveal reveal-delay-1">
+        <img src="https://frontends.udemycdn.com/frontends-homepage/staticx/udemy/images/v7/logo-udemy.svg"
+             alt="Udemy" class="edu-logo" style="filter:brightness(0) invert(0.75);">
+        <div class="edu-title">Udemy — Formation continue</div>
+        <span class="edu-badge edu-badge-purple">En continu</span>
+        <p class="edu-desc">Cours actifs depuis <strong>2022</strong>. Certifications complétées :</p>
+        <div class="edu-cert-tags">
+          <span>Docker</span>
+          <span>JavaScript avancé</span>
+          <span>C# / Unity 2D</span>
+          <span>C# / 3D avancé</span>
+        </div>
+      </div>
+
+      <!-- Cégep Rosemont -->
+      <div class="edu-card reveal reveal-delay-2">
+        <img src="https://www.crosemont.qc.ca/assets/Logo+Rosemont.png"
+             alt="Cégep de Rosemont" class="edu-logo">
+        <div class="edu-title">Cégep de Rosemont</div>
+        <span class="edu-badge edu-badge-green">DEC Obtenu</span>
+        <p class="edu-desc">
+          <strong>DEC</strong> en <strong>Développement d'applications web et mobile</strong>
+          — Cégep de Rosemont <strong>(2022–2025)</strong>.
+          Full-stack, mobile Android, bases de données, DevOps.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────── CONTACT ───────────────────────────── -->
+<div class="section-contact-wrap">
+  <div id="contact" class="contact-inner">
+    <div class="section-label reveal" style="margin:0 auto 0.75rem; width:fit-content;" data-i18n="contact.label">Travaillons ensemble</div>
+    <h2 class="section-title reveal reveal-delay-1">Contact</h2>
+    <p class="section-desc reveal reveal-delay-2" style="margin:0 auto;">
+      <span data-i18n="contact.desc">Un projet, une opportunité ? Je suis disponible. Réponse sous 24h.</span>
+    </p>
+
+    <div class="contact-card reveal reveal-delay-3">
+      <form class="contact-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="nom" data-i18n="contact.name">Nom</label>
+            <input class="form-input" type="text" id="nom" name="name" placeholder="Pierre Dupont" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="pierre@exemple.com" autocomplete="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="sujet" data-i18n="contact.subject">Sujet</label>
+          <input class="form-input" type="text" id="sujet" name="title" placeholder="Collaboration, opportunité...">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">Message</label>
+          <textarea class="form-textarea" id="message" name="message" rows="5" placeholder="Décrivez votre projet..."></textarea>
+        </div>
+        <input type="hidden" id="contact-time" name="time">
+        <button type="submit" class="btn-submit" data-i18n="contact.submit">Envoyer le message</button>
+      </form>
+    </div>
+
+    <div class="contact-social reveal reveal-delay-4">
+      <button class="social-link" type="button" title="LinkedIn" aria-label="LinkedIn" data-preview-url="https://www.linkedin.com/in/handy-charles-g-pierre-5977a9186/" data-preview-title="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </button>
+      <button class="social-link" type="button" title="Instagram" aria-label="Instagram" data-preview-url="https://www.instagram.com/handy.up?igsh=MWliem5yZHp5YTN6dQ%3D%3D&utm_source=qr" data-preview-title="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.76 5.76 0 0122 7.75v8.5A5.76 5.76 0 0116.25 22h-8.5A5.76 5.76 0 012 16.25v-8.5A5.76 5.76 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5A3.75 3.75 0 0020 16.25v-8.5A3.75 3.75 0 0016.25 4h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.25-2.35a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z"/></svg>
+      </button>
+      <button class="social-link" type="button" title="TikTok" aria-label="TikTok" data-preview-url="https://www.tiktok.com/@handypcg?_r=1&_t=ZS-96PXfIDPFki" data-preview-title="TikTok">
+        <svg viewBox="0 0 24 24"><path d="M16.6 5.82a5.8 5.8 0 003.4 1.1v3.05a8.67 8.67 0 01-3.38-.72v6.42A5.33 5.33 0 1111.29 10c.32 0 .63.03.93.08v3.18a2.26 2.26 0 00-.93-.2 2.28 2.28 0 102.28 2.28V2h3.03c.09.75.39 2.38 2 3.82z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────── FOOTER ────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <a href="#about" class="footer-logo">Handy<span>.dev</span></a>
+    <p class="footer-copy" data-i18n="footer.copy">© 2025 Pierre Handy Charles — Tous droits réservés.</p>
+  </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/theaterjs@3.0.0/dist/theater.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!-- ══════════ MODAL PROJETS (carrousel) ══════════════════════ -->
+<div class="modal-overlay" id="project-modal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title"></h2>
+      <button class="modal-close" aria-label="Fermer">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="carousel-wrap">
+        <div class="modal-carousel"></div>
+        <button class="carousel-ctrl prev">‹</button>
+        <button class="carousel-ctrl next">›</button>
+      </div>
+      <div class="carousel-dots"></div>
+      <p class="carousel-caption-text"></p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="modal-gh-link btn-secondary" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        Voir sur GitHub
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PREVIEW MODAL (CV / GitHub / URLs) ════════════ -->
+<div class="preview-modal-overlay" id="preview-modal" role="dialog" aria-modal="true">
+  <div class="preview-modal-box">
+    <div class="preview-modal-header">
+      <div class="preview-modal-title" id="preview-modal-title">Aperçu</div>
+      <div class="preview-modal-actions">
+        <a href="#" id="preview-open-link" target="_blank" rel="noopener" class="btn-secondary" style="font-size:0.78rem; padding:6px 14px;">
+          Ouvrir ↗
+        </a>
+        <button class="modal-close" id="preview-close">✕</button>
+      </div>
+    </div>
+    <div class="preview-modal-body" id="preview-modal-body">
+      <!-- Contenu injecté via JS -->
+    </div>
+  </div>
+</div>
+
+<!-- Project data -->
+<script>
+window.projectData = {
+  biblio: {
+    title: "Bibliothèque d'échange d'ouvrage",
+    github: "https://github.com/Handy-up/bibliothequerosemont",
+    slides: [
+      { src:"images/bibliot/pic1.png", caption:"Page de connexion — Accès via clé administrateur unique" },
+      { src:"images/bibliot/pic2.png", caption:"Profil utilisateur — Gestion du compte" },
+      { src:"images/bibliot/pic3.png", caption:"Banque de livres — Ajout et gestion des transferts" },
+      { src:"images/bibliot/pic4.png", caption:"Catalogue — Recherche avancée de livres" },
+      { src:"images/bibliot/pic5.png", caption:"Notifications — Suivi des demandes d'échange" },
+      { src:"images/bibliot/pic6.png", caption:"Panel admin — Statistiques d'utilisation" },
+      { src:"images/bibliot/pic7.png", caption:"Admin — Gestion des livres du catalogue" },
+      { src:"images/bibliot/pic8.png", caption:"Admin — Notifications et gestion des clés" }
+    ]
+  },
+  javaEdit: {
+    title:"Éditeur de texte Java",
+    github:"https://git.dti.crosemont.quebec/hpierre/editeur_java",
+    slides:[{ src:"images/javaEdit/pic1.png", caption:"Interface principale de l'éditeur de texte Java" }]
+  },
+  pendu: {
+    title:"Jeu du pendu Android",
+    github:"https://github.com/Handy-up/Jeu-Mobile-Pendu",
+    slides:[{ src:"images/JeuPendu/pic1.png", caption:"Jeu du pendu Android — Kotlin avec minuteur intégré" }]
+  }
+};
+</script>
+<!-- Toast notification -->
+<div id="form-toast" class="form-toast" role="alert" aria-live="polite">
+  <span id="form-toast-icon"></span>
+  <span id="form-toast-msg"></span>
+</div>
+
+<script src="config.js"></script>
 <script src="JsFiles/app.js"></script>
 </body>
 </html>
