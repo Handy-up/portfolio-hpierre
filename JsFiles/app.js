@@ -481,6 +481,7 @@ function getPortfolioConfigValue(path) {
   function open(config) {
     // config: { title, pill, url, type: 'iframe'|'github'|'pdf' }
     overlay.classList.add('open');
+    overlay.dataset.previewType = config.type || 'iframe';
     document.body.style.overflow = 'hidden';
 
     // Update header
@@ -503,7 +504,9 @@ function getPortfolioConfigValue(path) {
     } else {
       // iframe (PDF, website)
       const iframe = document.createElement('iframe');
-      iframe.src = config.url;
+      iframe.src = config.type === 'pdf' && !String(config.url).includes('#')
+        ? `${config.url}#zoom=page-width`
+        : config.url;
       iframe.title = config.title;
       iframe.loading = 'lazy';
       iframe.allow = 'fullscreen';
@@ -518,6 +521,7 @@ function getPortfolioConfigValue(path) {
 
   function close() {
     overlay.classList.remove('open');
+    delete overlay.dataset.previewType;
     document.body.style.overflow = '';
     bodyEl.innerHTML = '';
   }

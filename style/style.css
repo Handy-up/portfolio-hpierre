@@ -1152,7 +1152,7 @@ footer { border-top:1px solid var(--border); padding:1.75rem 2rem; }
   background: var(--bg-card);
   border: 1px solid var(--border-hover);
   border-radius: 20px;
-  width: 100%; max-width: 860px;
+  width: min(100%, 860px);
   max-height: 90vh;
   overflow-y: auto;
   transform: scale(0.96) translateY(14px);
@@ -1161,11 +1161,12 @@ footer { border-top:1px solid var(--border); padding:1.75rem 2rem; }
 .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
 .modal-header {
   display: flex; align-items:center; justify-content:space-between;
+  gap: 1rem;
   padding: 1.4rem 1.75rem;
   border-bottom: 1px solid var(--border);
   position: sticky; top: 0; background: var(--bg-card); z-index: 1;
 }
-.modal-title { font-size:1.05rem; font-weight:700; color:var(--text-primary); }
+.modal-title { min-width:0; font-size:1.05rem; font-weight:700; color:var(--text-primary); overflow-wrap:anywhere; }
 .modal-close {
   width: 34px; height: 34px;
   background: rgba(255,255,255,0.04);
@@ -1235,7 +1236,7 @@ footer { border-top:1px solid var(--border); padding:1.75rem 2rem; }
   background: var(--bg-card);
   border: 1px solid var(--border-hover);
   border-radius: 20px;
-  width: 100%; max-width: 960px;
+  width: min(100%, 960px);
   height: 90vh;
   display: flex;
   flex-direction: column;
@@ -1246,17 +1247,20 @@ footer { border-top:1px solid var(--border); padding:1.75rem 2rem; }
 .preview-modal-overlay.open .preview-modal-box { transform:scale(1) translateY(0); }
 .preview-modal-header {
   display: flex; align-items:center; justify-content:space-between;
+  gap: 1rem;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
 .preview-modal-title {
+  min-width: 0;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  overflow-wrap: anywhere;
 }
 .preview-modal-title .pill {
   font-size: 0.68rem;
@@ -1269,7 +1273,7 @@ footer { border-top:1px solid var(--border); padding:1.75rem 2rem; }
   letter-spacing: 0.05em;
 }
 .preview-modal-actions { display:flex; align-items:center; gap:0.6rem; }
-.preview-modal-body { flex:1; position:relative; overflow:hidden; }
+.preview-modal-body { flex:1; min-height:0; position:relative; overflow:hidden; }
 .preview-modal-body iframe {
   width: 100%; height: 100%;
   border: none;
@@ -1284,7 +1288,9 @@ footer { border-top:1px solid var(--border); padding:1.75rem 2rem; }
   align-items: center;
   gap: 1.25rem;
   height: 100%;
+  min-width: 0;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .gh-avatar {
   width: 100px; height: 100px;
@@ -1292,7 +1298,7 @@ footer { border-top:1px solid var(--border); padding:1.75rem 2rem; }
   border: 3px solid var(--accent-border);
 }
 .gh-name { font-size:1.4rem; font-weight:800; color:var(--text-primary); }
-.gh-bio { font-size:0.9rem; color:var(--text-secondary); text-align:center; max-width:400px; line-height:1.6; }
+.gh-bio { font-size:0.9rem; color:var(--text-secondary); text-align:center; max-width:400px; line-height:1.6; overflow-wrap:anywhere; }
 .gh-repo-hero {
   display: flex;
   align-items: center;
@@ -1565,6 +1571,17 @@ footer { border-top:1px solid var(--border); padding:1.75rem 2rem; }
   color: var(--text-secondary);
   font-size: 0.84rem;
   line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.repo-readme-content img,
+.repo-readme-content video {
+  max-width: 100%;
+  height: auto;
+}
+.repo-readme-content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
 }
 .repo-readme-content h3,
 .repo-readme-content h4,
@@ -1619,6 +1636,8 @@ footer { border-top:1px solid var(--border); padding:1.75rem 2rem; }
   gap: 1.15rem;
   padding: 2rem;
   text-align: center;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .external-preview-icon {
   width: 58px;
@@ -1655,6 +1674,8 @@ footer { border-top:1px solid var(--border); padding:1.75rem 2rem; }
   background:
     radial-gradient(circle at 50% 38%, rgba(62,207,142,0.09), transparent 32%),
     var(--bg-card);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .calendar-preview-icon {
   width: 64px;
@@ -1800,6 +1821,221 @@ footer { border-top:1px solid var(--border); padding:1.75rem 2rem; }
   .repo-browser-sidebar { border-right:0; border-bottom:1px solid var(--border); }
   .repo-tree { height:220px; }
   .repo-readme { min-height:320px; }
+}
+
+@media (max-width: 640px) {
+  .modal-overlay,
+  .preview-modal-overlay {
+    align-items: stretch;
+    padding: max(0.75rem, env(safe-area-inset-top)) 0.75rem max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .modal-box,
+  .preview-modal-box {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    max-height: calc(100svh - 1.5rem);
+    border-radius: 16px;
+  }
+
+  .preview-modal-box {
+    height: calc(100svh - 1.5rem);
+  }
+
+  .modal-header,
+  .preview-modal-header {
+    align-items: flex-start;
+    padding: 0.9rem 1rem;
+  }
+
+  .modal-title,
+  .preview-modal-title {
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    font-size: 0.94rem;
+    line-height: 1.35;
+  }
+
+  .preview-modal-title .pill {
+    font-size: 0.62rem;
+    padding: 2px 8px;
+  }
+
+  .preview-modal-actions {
+    flex: 0 0 auto;
+    gap: 0.45rem;
+  }
+
+  .preview-modal-actions .btn-secondary,
+  .modal-footer .btn-secondary {
+    min-height: 38px;
+    padding: 0.48rem 0.7rem !important;
+    font-size: 0.74rem !important;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .modal-close {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .modal-footer {
+    justify-content: stretch;
+    padding: 0.9rem 1rem;
+  }
+
+  .modal-footer .btn-secondary {
+    width: 100%;
+  }
+
+  .carousel-wrap {
+    border-radius: 10px;
+  }
+
+  .carousel-ctrl {
+    width: 32px;
+    height: 32px;
+  }
+
+  .carousel-ctrl.prev { left:0.45rem; }
+  .carousel-ctrl.next { right:0.45rem; }
+  .carousel-caption-text { font-size:0.76rem; }
+
+  .preview-modal-overlay[data-preview-type="pdf"] .preview-modal-body {
+    overflow: auto;
+    background: #fff;
+  }
+
+  .preview-modal-overlay[data-preview-type="pdf"] iframe {
+    min-width: 100%;
+  }
+
+  .gh-profile-card,
+  .calendar-preview-card,
+  .external-preview-card {
+    justify-content: flex-start;
+    gap: 0.9rem;
+    padding: 1rem;
+  }
+
+  .gh-avatar {
+    width: 76px;
+    height: 76px;
+  }
+
+  .gh-name {
+    width: 100%;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  .gh-bio {
+    max-width: 100%;
+    font-size: 0.82rem;
+  }
+
+  .gh-stats {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .gh-stat-val {
+    font-size: clamp(0.88rem, 4vw, 1.1rem);
+    overflow-wrap: anywhere;
+  }
+
+  .gh-stat-lbl {
+    font-size: 0.62rem;
+  }
+
+  .gh-repo-hero {
+    width: 100%;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .gh-repo-mark {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+  }
+
+  .repo-branch-control,
+  .repo-branch-select {
+    width: 100%;
+  }
+
+  .repo-browser {
+    min-height: 0;
+    border-radius: 12px;
+  }
+
+  .repo-tree {
+    height: 180px;
+    font-size: 0.68rem;
+  }
+
+  .repo-readme {
+    max-height: 52svh;
+    min-height: 260px;
+  }
+
+  .repo-readme-content {
+    padding: 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  .repo-meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-preview-icon {
+    width: 52px;
+    height: 52px;
+    padding: 10px;
+  }
+
+  .calendar-availability {
+    padding: 0.85rem;
+  }
+
+  .calendar-availability-value {
+    font-size: 0.92rem;
+  }
+
+  .calendar-slot {
+    align-items: flex-start;
+    padding: 0.62rem;
+    font-size: 0.78rem;
+  }
+
+  .external-preview-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .external-preview-url {
+    width: 100%;
+    font-size: 0.7rem;
+  }
+
+  .gh-open-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
