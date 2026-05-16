@@ -366,6 +366,32 @@ const typedRoles = {
   }, { passive: true });
 })();
 
+/* ── Portfolio config (.env -> config.js) ─────────────────── */
+function getPortfolioConfigValue(path) {
+  return String(path || '').split('.').reduce((value, key) => {
+    if (!value || typeof value !== 'object') return '';
+    return value[key];
+  }, window.PORTFOLIO_LINKS || '') || '';
+}
+
+(function initPortfolioConfigValues() {
+  document.querySelectorAll('[data-config-src]').forEach(img => {
+    const src = getPortfolioConfigValue(img.dataset.configSrc);
+    if (src) img.src = src;
+  });
+
+  document.querySelectorAll('[data-preview-key]').forEach(el => {
+    const url = getPortfolioConfigValue(el.dataset.previewKey);
+    if (url) el.dataset.previewUrl = url;
+  });
+
+  if (window.projectData) {
+    Object.values(window.projectData).forEach(project => {
+      if (project.linkKey) project.github = getPortfolioConfigValue(project.linkKey);
+    });
+  }
+})();
+
 /* ── Project Modal ────────────────────────────────────────── */
 (function initProjectModal() {
   const overlay   = document.getElementById('project-modal');
@@ -403,7 +429,7 @@ const typedRoles = {
   function open(data) {
     slides = data.slides || []; idx = 0;
     titleEl.textContent = data.title || '';
-    if (ghLink) { ghLink.href = data.github || '#'; }
+    if (ghLink) { ghLink.href = data.github || getPortfolioConfigValue(data.linkKey) || '#'; }
     dotsWrap.innerHTML = '';
     slides.forEach((_, i) => {
       const d = document.createElement('button');
@@ -945,7 +971,8 @@ const typedRoles = {
   function getExternalReadmeCandidates(url) {
     try {
       const parsed = new URL(url);
-      if (!parsed.hostname.includes('git.dti.crosemont.quebec')) return [];
+      const gitlabHost = getPortfolioConfigValue('externalHosts.gitlab');
+      if (!gitlabHost || !parsed.hostname.includes(gitlabHost)) return [];
       const path = parsed.pathname.replace(/\/$/, '');
       return [
         `${parsed.origin}${path}/-/raw/main/README.md`,
@@ -959,7 +986,8 @@ const typedRoles = {
   function getGitLabProjectApi(url) {
     try {
       const parsed = new URL(url);
-      if (!parsed.hostname.includes('git.dti.crosemont.quebec')) return null;
+      const gitlabHost = getPortfolioConfigValue('externalHosts.gitlab');
+      if (!gitlabHost || !parsed.hostname.includes(gitlabHost)) return null;
       const projectPath = parsed.pathname.replace(/^\/|\/$/g, '');
       return `${parsed.origin}/api/v4/projects/${encodeURIComponent(projectPath)}`;
     } catch {
@@ -1065,18 +1093,18 @@ const typedRoles = {
   // GitHub (hero button + icône contact)
   function openGitHub() {
     open({
-      title: 'GitHub — Handy-up',
+      title: 'GitHub',
       pill: 'Profil',
-      url: 'https://github.com/Handy-up',
+      url: getPortfolioConfigValue('githubProfile'),
       type: 'github'
     });
   }
   document.getElementById('open-gh-btn') && document.getElementById('open-gh-btn').addEventListener('click', openGitHub);
 
   // Liens de dépôt sur les projets
-  document.querySelectorAll('[data-preview-url]').forEach(btn => {
+  document.querySelectorAll('[data-preview-url], [data-preview-key]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const url  = btn.dataset.previewUrl;
+      const url  = btn.dataset.previewUrl || getPortfolioConfigValue(btn.dataset.previewKey);
       const name = btn.dataset.previewTitle || btn.textContent.trim();
       const isGH = url.includes('github.com');
       const isSocial = /linkedin\.com|instagram\.com|tiktok\.com/.test(url);

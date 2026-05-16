@@ -54,6 +54,28 @@ window.SCHEDULING_CONFIG = ${JSON.stringify({
   availabilityFr: env.BOOKING_AVAILABILITY_FR || '',
   availabilityEn: env.BOOKING_AVAILABILITY_EN || '',
 }, null, 2)};
+
+window.PORTFOLIO_LINKS = ${JSON.stringify({
+  githubProfile: env.GITHUB_PROFILE_URL || '',
+  social: {
+    linkedin: env.LINKEDIN_URL || '',
+    instagram: env.INSTAGRAM_URL || '',
+    tiktok: env.TIKTOK_URL || '',
+  },
+  projects: {
+    biblio: env.PROJECT_BIBLIO_URL || '',
+    javaEdit: env.PROJECT_EDITOR_URL || '',
+    pendu: env.PROJECT_PENDU_URL || '',
+  },
+  educationLogos: {
+    esih: env.EDU_ESIH_LOGO_URL || '',
+    udemy: env.EDU_UDEMY_LOGO_URL || '',
+    rosemont: env.EDU_ROSEMONT_LOGO_URL || '',
+  },
+  externalHosts: {
+    gitlab: env.EXTERNAL_GITLAB_HOST || '',
+  },
+}, null, 2)};
 `;
 
 fs.writeFileSync(configPath, config);
