@@ -58,6 +58,9 @@
   const canvas = document.getElementById('hero-dot-grid-canvas');
   if (!section || !canvas) return;
 
+  const desktopQuery = window.matchMedia('(min-width: 1025px)');
+  if (!desktopQuery.matches) return;
+
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 

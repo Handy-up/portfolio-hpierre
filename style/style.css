@@ -1809,6 +1809,7 @@ footer { border-top:1px solid var(--border); padding:1.75rem 2rem; }
 
 /* ── RESPONSIVE ───────────────────────────────────────────── */
 @media (max-width: 1024px) {
+  .hero-dot-grid { display:none; }
   .hero-inner { grid-template-columns:1fr; }
   .hero-avatar-wrap { display:none; }
   .skills-header { grid-template-columns:1fr; gap:1.5rem; }
