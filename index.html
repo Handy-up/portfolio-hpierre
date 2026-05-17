@@ -3,24 +3,88 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Handy.dev — Développeur Full-Stack</title>
-  <meta name="description" content="Pierre Handy Charles — Développeur full-stack React, Next.js, React Native. Builder de produits digitaux.">
+  <title>Pierre Handy | Full-Stack Developer & Tech Entrepreneur</title>
+  <meta name="description" content="Portfolio of Pierre Handy, full-stack developer, entrepreneur and finance-minded product builder based in Montreal, Canada. React, Next.js, mobile apps, UI/UX and modern software development.">
+  <meta name="keywords" content="Pierre Handy, Pierre Handy developer, full-stack developer Montreal, tech entrepreneur Montreal, React developer, Next.js developer, mobile development, UI UX, product development, software engineer Montreal">
+  <meta name="author" content="Pierre Handy">
+  <meta name="creator" content="Pierre Handy">
+  <meta name="publisher" content="Pierre Handy">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090F">
+  <link rel="canonical" href="https://pierrehandy.com/">
   <link rel="icon" type="image/svg+xml" href="images/logo/dev-logo.svg">
+  <link rel="preload" as="image" href="images/profil/pic.png" imagesrcset="images/profil/pic.png 1536w" imagesizes="(max-width: 768px) 0px, 268px" fetchpriority="high">
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Pierre Handy Portfolio">
+  <meta property="og:title" content="Pierre Handy | Full-Stack Developer & Tech Entrepreneur">
+  <meta property="og:description" content="Developer • Entrepreneur • Finance. Portfolio of Pierre Handy, a Montreal-based full-stack developer building software products with React, Next.js, mobile apps and UI/UX.">
+  <meta property="og:url" content="https://pierrehandy.com/">
+  <meta property="og:image" content="https://pierrehandy.com/images/profil/pic.png">
+  <meta property="og:image:alt" content="Pierre Handy full-stack developer portrait">
+  <meta property="profile:first_name" content="Pierre">
+  <meta property="profile:last_name" content="Handy">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pierre Handy | Full-Stack Developer & Tech Entrepreneur">
+  <meta name="twitter:description" content="Montreal full-stack developer and entrepreneur building modern software products, mobile apps and polished UI/UX experiences.">
+  <meta name="twitter:image" content="https://pierrehandy.com/images/profil/pic.png">
+  <meta name="twitter:image:alt" content="Pierre Handy full-stack developer portrait">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="style/style.css" rel="stylesheet">
+  <script id="structured-data" type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://pierrehandy.com/#pierre-handy",
+        "name": "Pierre Handy",
+        "alternateName": ["Pierre Handy Charles", "Handy.dev"],
+        "url": "https://pierrehandy.com/",
+        "image": "https://pierrehandy.com/images/profil/pic.png",
+        "jobTitle": "Full-Stack Developer",
+        "description": "Pierre Handy is a full-stack developer, tech entrepreneur and finance-minded product builder based in Montreal, Canada.",
+        "knowsAbout": ["Full-Stack Development", "React", "Next.js", "Mobile Development", "UI/UX", "Product Development", "Software Engineering", "Entrepreneurship", "Finance"],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Montreal",
+          "addressRegion": "QC",
+          "addressCountry": "CA"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://pierrehandy.com/#website",
+        "url": "https://pierrehandy.com/",
+        "name": "Pierre Handy Portfolio",
+        "alternateName": "Handy.dev",
+        "publisher": { "@id": "https://pierrehandy.com/#pierre-handy" },
+        "inLanguage": ["fr-CA", "en-CA"]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://pierrehandy.com/#organization",
+        "name": "Handy.dev",
+        "url": "https://pierrehandy.com/",
+        "founder": { "@id": "https://pierrehandy.com/#pierre-handy" },
+        "logo": "https://pierrehandy.com/images/logo/dev-logo.svg"
+      }
+    ]
+  }
+  </script>
   <!-- EmailJS — envoi de formulaire sans backend -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Aller au contenu principal</a>
 
 <!-- Cursor -->
 <div class="cursor-dot" id="cursor-dot"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
 
 <!-- ─────────────────── NAV ─────────────────────────────── -->
-<nav class="navbar" role="navigation">
+<nav class="navbar" role="navigation" aria-label="Navigation principale">
   <div class="nav-inner">
     <a href="#about" class="nav-logo">Handy<span>.dev</span></a>
     <!-- desktop links -->
@@ -51,6 +115,7 @@
 </div>
 
 <!-- ─────────────────── HERO ─────────────────────────────── -->
+<main id="main-content">
 <section id="about">
   <div class="hero-bg" aria-hidden="true">
     <div class="hero-dot-grid">
@@ -75,23 +140,24 @@
       </div>
       <p class="hero-greeting reveal reveal-delay-1" data-i18n="hero.greeting">Je suis,</p>
       <h1 class="hero-name reveal reveal-delay-2">
-        <span class="accent-text">HANDY</span>
+        <span class="accent-text" aria-hidden="true">HANDY</span>
+        <span class="visually-hidden">Pierre Handy - Full-Stack Developer, Tech Entrepreneur and Finance-focused product builder in Montreal, Canada</span>
       </h1>
       <p class="hero-role reveal reveal-delay-3">
         <span id="typed-role"></span><span class="typed-cursor">|</span>
       </p>
       <p class="hero-desc reveal reveal-delay-4">
-        <span data-i18n="hero.desc">Développeur full-stack passionné par la technologie, le multimédia et l'entrepreneuriat. Je conçois des produits solides, des interfaces soignées et des architectures pensées pour durer.</span>
+        <span data-i18n="hero.desc">Pierre Handy est un développeur full-stack et entrepreneur basé à Montréal. Je conçois des produits logiciels solides avec React, Next.js, mobile development, UI/UX et une vision orientée finance.</span>
       </p>
 
       <div class="hero-actions reveal reveal-delay-5">
         <!-- CV → ouvre preview in-site -->
-        <button class="btn-primary" id="open-cv-btn">
+        <button class="btn-primary" id="open-cv-btn" aria-label="Voir le CV de Pierre Handy">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
           <span data-i18n="hero.cv">Voir mon CV</span>
         </button>
         <!-- GitHub → preview in-site -->
-        <button class="btn-secondary" id="open-gh-btn">
+        <button class="btn-secondary" id="open-gh-btn" aria-label="Voir le profil GitHub de Pierre Handy">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           <span data-i18n="hero.github">Voir GitHub</span>
         </button>
@@ -117,22 +183,22 @@
     <div class="hero-avatar-wrap" aria-hidden="true">
       <div class="hero-avatar-bg"></div>
       <div class="hero-avatar-ring"></div>
-      <img src="images/profil/pic.png" alt="Pierre Handy Charles" class="hero-avatar-img">
+      <img src="images/profil/pic.png" alt="Pierre Handy full-stack developer portrait in Montreal" class="hero-avatar-img" width="1536" height="1024" fetchpriority="high" decoding="async">
     </div>
   </div>
 </section>
 
 <!-- ─────────────────── SKILLS ────────────────────────────── -->
-<div id="skills" class="skills-section">
+<section id="skills" class="skills-section" aria-labelledby="skills-title">
   <!-- Header -->
   <div class="skills-header">
     <div>
       <div class="section-label reveal" data-i18n="skills.label">Stack technique</div>
-      <h2 class="section-title reveal reveal-delay-1" data-i18n="skills.title">Compétences</h2>
+      <h2 class="section-title reveal reveal-delay-1" id="skills-title" data-i18n="skills.title">Compétences</h2>
     </div>
     <div>
       <p class="section-desc reveal reveal-delay-2">
-        <span data-i18n="skills.desc">Mon stack principal tourne autour de l'écosystème JavaScript moderne — du web au mobile, avec des outils de production robustes.</span>
+        <span data-i18n="skills.desc">Mon stack principal tourne autour de l'écosystème JavaScript moderne — React, Next.js, mobile development et outils de production robustes pour construire des produits web performants.</span>
       </p>
       <button class="btn-accent reveal reveal-delay-3" id="open-cert-btn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -241,25 +307,25 @@
       SQL / PostgreSQL
     </div>
   </div>
-</div>
+</section>
 
 <!-- ─────────────────── PROJECTS ──────────────────────────── -->
-<div class="section-projects-wrap">
+<section class="section-projects-wrap" aria-labelledby="projects-title">
   <div id="projects" class="projects-inner">
     <div class="section-label reveal" data-i18n="projects.label">Travaux récents</div>
-    <h2 class="section-title reveal reveal-delay-1" data-i18n="projects.title">Projets</h2>
+    <h2 class="section-title reveal reveal-delay-1" id="projects-title" data-i18n="projects.title">Projets</h2>
     <p class="section-desc reveal reveal-delay-2">
-      <span data-i18n="projects.desc">Des projets concrets, construits pour résoudre de vrais problèmes. Chaque ligne de code pense à l'expérience utilisateur.</span>
+      <span data-i18n="projects.desc">Des projets concrets de Pierre Handy, construits pour résoudre de vrais problèmes avec une approche produit, UI/UX et développement logiciel moderne.</span>
     </p>
 
     <div class="projects-grid">
 
       <!-- Projet 1 -->
-      <div class="project-card reveal">
+      <article class="project-card reveal">
         <div class="project-img-wrap">
-          <img src="images/bibliot/cover_biblio.png" alt="Bibliothèque d'échange" loading="lazy">
+          <img src="images/bibliot/cover_biblio.png" alt="Bibliothèque d'échange d'ouvrage web app by Pierre Handy" loading="lazy" decoding="async" width="1536" height="1024">
           <div class="project-img-overlay">
-            <button class="project-overlay-btn" data-modal="biblio">
+            <button class="project-overlay-btn" data-modal="biblio" aria-label="Voir le projet Bibliothèque d'échange d'ouvrage">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
               <span data-i18n="projects.view">Voir le projet</span>
             </button>
@@ -274,21 +340,21 @@
           <h3 class="project-title">Bibliothèque d'échange d'ouvrage</h3>
           <p class="project-desc" data-i18n="project.biblio.desc">Plateforme de partage de livres entre usagers sur entente mutuelle. Panel admin complet avec statistiques et gestion des clés d'accès.</p>
           <div class="project-footer">
-            <button class="project-demo-btn" data-modal="biblio" data-i18n="projects.demo">Voir la démo</button>
-            <button class="project-gh-link" data-preview-key="projects.biblio" data-preview-title="Bibliothèque d'échange d'ouvrage">
+            <button class="project-demo-btn" data-modal="biblio" data-i18n="projects.demo" aria-label="Voir la démo Bibliothèque d'échange d'ouvrage">Voir la démo</button>
+            <button class="project-gh-link" data-preview-key="projects.biblio" data-preview-title="Bibliothèque d'échange d'ouvrage" aria-label="Voir le dépôt GitHub Bibliothèque d'échange d'ouvrage">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               GitHub
             </button>
           </div>
         </div>
-      </div>
+      </article>
 
       <!-- Projet 2 -->
-      <div class="project-card reveal reveal-delay-1">
+      <article class="project-card reveal reveal-delay-1">
         <div class="project-img-wrap">
-          <img src="images/javaEdit/cover_edit_text.png" alt="Éditeur de texte Java" loading="lazy">
+          <img src="images/javaEdit/cover_edit_text.png" alt="Éditeur de texte Java desktop application by Pierre Handy" loading="lazy" decoding="async" width="1536" height="1024">
           <div class="project-img-overlay">
-            <button class="project-overlay-btn" data-modal="javaEdit">
+            <button class="project-overlay-btn" data-modal="javaEdit" aria-label="Voir le projet Éditeur de texte Java">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
               <span data-i18n="projects.view">Voir le projet</span>
             </button>
@@ -303,21 +369,21 @@
           <h3 class="project-title">Éditeur de texte Java</h3>
           <p class="project-desc" data-i18n="project.editor.desc">Application desktop développée en Java avec interface Swing. Ouverture, édition, sauvegarde avec recherche et remplacement intégrés.</p>
           <div class="project-footer">
-            <button class="project-demo-btn" data-modal="javaEdit" data-i18n="projects.demo">Voir la démo</button>
-            <button class="project-gh-link" data-preview-key="projects.javaEdit" data-preview-title="Éditeur de texte Java">
+            <button class="project-demo-btn" data-modal="javaEdit" data-i18n="projects.demo" aria-label="Voir la démo Éditeur de texte Java">Voir la démo</button>
+            <button class="project-gh-link" data-preview-key="projects.javaEdit" data-preview-title="Éditeur de texte Java" aria-label="Voir le dépôt Éditeur de texte Java">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               GitHub
             </button>
           </div>
         </div>
-      </div>
+      </article>
 
       <!-- Projet 3 -->
-      <div class="project-card reveal reveal-delay-2">
+      <article class="project-card reveal reveal-delay-2">
         <div class="project-img-wrap">
-          <img src="images/JeuPendu/coverPendu.png" alt="Jeu du pendu Android" loading="lazy">
+          <img src="images/JeuPendu/coverPendu.png" alt="Jeu du pendu Android Kotlin mobile app by Pierre Handy" loading="lazy" decoding="async" width="1536" height="1024">
           <div class="project-img-overlay">
-            <button class="project-overlay-btn" data-modal="pendu">
+            <button class="project-overlay-btn" data-modal="pendu" aria-label="Voir le projet Jeu du pendu Android">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
               <span data-i18n="projects.view">Voir le projet</span>
             </button>
@@ -332,31 +398,31 @@
           <h3 class="project-title">Jeu du pendu Android</h3>
           <p class="project-desc" data-i18n="project.pendu.desc">Jeu du pendu classique en Kotlin avec minuteur intégré, niveaux de difficulté et design mobile-first pensé pour l'UX.</p>
           <div class="project-footer">
-            <button class="project-demo-btn" data-modal="pendu" data-i18n="projects.demo">Voir la démo</button>
-            <button class="project-gh-link" data-preview-key="projects.pendu" data-preview-title="Jeu du pendu Android">
+            <button class="project-demo-btn" data-modal="pendu" data-i18n="projects.demo" aria-label="Voir la démo Jeu du pendu Android">Voir la démo</button>
+            <button class="project-gh-link" data-preview-key="projects.pendu" data-preview-title="Jeu du pendu Android" aria-label="Voir le dépôt GitHub Jeu du pendu Android">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               GitHub
             </button>
           </div>
         </div>
-      </div>
+      </article>
 
     </div>
   </div>
-</div>
+</section>
 
 <!-- ─────────────────── EDUCATION ─────────────────────────── -->
-<div class="section-edu-wrap">
+<section class="section-edu-wrap" aria-labelledby="education-title">
   <div id="education" class="edu-inner">
     <div class="section-label reveal" data-i18n="education.label">Parcours académique</div>
-    <h2 class="section-title reveal reveal-delay-1" data-i18n="education.title">Formations</h2>
+    <h2 class="section-title reveal reveal-delay-1" id="education-title" data-i18n="education.title">Formations</h2>
 
     <div class="edu-grid">
 
       <!-- ESIH -->
       <div class="edu-card reveal">
         <img data-config-src="educationLogos.esih"
-             alt="ESIH" class="edu-logo">
+             alt="ESIH computer science education logo" class="edu-logo" loading="lazy" decoding="async">
         <div class="edu-title">ESIH — École Supérieure d'Infotronique d'Haïti</div>
         <span class="edu-badge edu-badge-amber">Pas terminé</span>
         <p class="edu-desc">
@@ -369,7 +435,7 @@
       <!-- Udemy -->
       <div class="edu-card reveal reveal-delay-1">
         <img data-config-src="educationLogos.udemy"
-             alt="Udemy" class="edu-logo" style="filter:brightness(0) invert(0.75);">
+             alt="Udemy continuous learning certifications logo" class="edu-logo" style="filter:brightness(0) invert(0.75);" loading="lazy" decoding="async">
         <div class="edu-title">Udemy — Formation continue</div>
         <span class="edu-badge edu-badge-purple">En continu</span>
         <p class="edu-desc">Cours actifs depuis <strong>2022</strong>. Certifications complétées :</p>
@@ -384,7 +450,7 @@
       <!-- Cégep Rosemont -->
       <div class="edu-card reveal reveal-delay-2">
         <img data-config-src="educationLogos.rosemont"
-             alt="Cégep de Rosemont" class="edu-logo">
+             alt="Cégep de Rosemont Montreal software development education logo" class="edu-logo" loading="lazy" decoding="async">
         <div class="edu-title">Cégep de Rosemont</div>
         <span class="edu-badge edu-badge-green">DEC Obtenu</span>
         <p class="edu-desc">
@@ -396,15 +462,15 @@
 
     </div>
   </div>
-</div>
+</section>
 
 <!-- ─────────────────── CONTACT ───────────────────────────── -->
-<div class="section-contact-wrap">
+<section class="section-contact-wrap" aria-labelledby="contact-title">
   <div id="contact" class="contact-inner">
     <div class="section-label reveal" style="margin:0 auto 0.75rem; width:fit-content;" data-i18n="contact.label">Travaillons ensemble</div>
-    <h2 class="section-title reveal reveal-delay-1">Contact</h2>
+    <h2 class="section-title reveal reveal-delay-1" id="contact-title">Contact</h2>
     <p class="section-desc reveal reveal-delay-2" style="margin:0 auto;">
-      <span data-i18n="contact.desc">Un projet, une opportunité ? Je suis disponible. Réponse sous 24h.</span>
+      <span data-i18n="contact.desc">Un projet logiciel, une opportunité produit ou une collaboration tech/finance à Montréal ou à distance ? Je suis disponible. Réponse sous 24h.</span>
     </p>
 
     <div class="contact-card reveal reveal-delay-3">
@@ -444,7 +510,8 @@
       </button>
     </div>
   </div>
-</div>
+</section>
+</main>
 
 <!-- ─────────────────── FOOTER ────────────────────────────── -->
 <footer>
@@ -455,17 +522,17 @@
 </footer>
 
 <!-- ══════════ MODAL PROJETS (carrousel) ══════════════════════ -->
-<div class="modal-overlay" id="project-modal" role="dialog" aria-modal="true">
+<div class="modal-overlay" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
   <div class="modal-box">
     <div class="modal-header">
-      <h2 class="modal-title"></h2>
+      <h2 class="modal-title" id="project-modal-title"></h2>
       <button class="modal-close" aria-label="Fermer">✕</button>
     </div>
     <div class="modal-body">
       <div class="carousel-wrap">
         <div class="modal-carousel"></div>
-        <button class="carousel-ctrl prev">‹</button>
-        <button class="carousel-ctrl next">›</button>
+        <button class="carousel-ctrl prev" aria-label="Image précédente">‹</button>
+        <button class="carousel-ctrl next" aria-label="Image suivante">›</button>
       </div>
       <div class="carousel-dots"></div>
       <p class="carousel-caption-text"></p>
@@ -480,7 +547,7 @@
 </div>
 
 <!-- ══════════ PREVIEW MODAL (CV / GitHub / URLs) ════════════ -->
-<div class="preview-modal-overlay" id="preview-modal" role="dialog" aria-modal="true">
+<div class="preview-modal-overlay" id="preview-modal" role="dialog" aria-modal="true" aria-labelledby="preview-modal-title">
   <div class="preview-modal-box">
     <div class="preview-modal-header">
       <div class="preview-modal-title" id="preview-modal-title">Aperçu</div>

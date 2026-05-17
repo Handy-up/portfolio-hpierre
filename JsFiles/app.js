@@ -288,7 +288,7 @@ const translations = {
     'nav.contact': 'Contact',
     'hero.book': 'Réserver un Meet',
     'hero.greeting': 'Je suis,',
-    'hero.desc': "Développeur full-stack passionné par la technologie, le multimédia et l'entrepreneuriat. Je conçois des produits solides, des interfaces soignées et des architectures pensées pour durer.",
+    'hero.desc': "Pierre Handy est un développeur full-stack et entrepreneur basé à Montréal. Je conçois des produits logiciels solides avec React, Next.js, mobile development, UI/UX et une vision orientée finance.",
     'hero.cv': 'Voir mon CV',
     'hero.github': 'Voir GitHub',
     'stats.projects': 'Projets réalisés',
@@ -296,11 +296,11 @@ const translations = {
     'stats.study': "Ans d'études",
     'skills.label': 'Stack technique',
     'skills.title': 'Compétences',
-    'skills.desc': "Mon stack principal tourne autour de l'écosystème JavaScript moderne — du web au mobile, avec des outils de production robustes.",
+    'skills.desc': "Mon stack principal tourne autour de l'écosystème JavaScript moderne — React, Next.js, mobile development et outils de production robustes pour construire des produits web performants.",
     'skills.certifications': 'Voir mes certifications',
     'projects.label': 'Travaux récents',
     'projects.title': 'Projets',
-    'projects.desc': "Des projets concrets, construits pour résoudre de vrais problèmes. Chaque ligne de code pense à l'expérience utilisateur.",
+    'projects.desc': "Des projets concrets de Pierre Handy, construits pour résoudre de vrais problèmes avec une approche produit, UI/UX et développement logiciel moderne.",
     'projects.view': 'Voir le projet',
     'projects.demo': 'Voir la démo',
     'project.biblio.desc': "Plateforme de partage de livres entre usagers sur entente mutuelle. Panel admin complet avec statistiques et gestion des clés d'accès.",
@@ -309,7 +309,7 @@ const translations = {
     'education.label': 'Parcours académique',
     'education.title': 'Formations',
     'contact.label': 'Travaillons ensemble',
-    'contact.desc': 'Un projet, une opportunité ? Je suis disponible. Réponse sous 24h.',
+    'contact.desc': 'Un projet logiciel, une opportunité produit ou une collaboration tech/finance à Montréal ou à distance ? Je suis disponible. Réponse sous 24h.',
     'contact.name': 'Nom',
     'contact.subject': 'Sujet',
     'contact.submit': 'Envoyer le message',
@@ -323,7 +323,7 @@ const translations = {
     'nav.contact': 'Contact',
     'hero.book': 'Book a Meet',
     'hero.greeting': 'I am,',
-    'hero.desc': 'Full-stack developer passionate about technology, multimedia, and entrepreneurship. I build solid products, polished interfaces, and architectures designed to last.',
+    'hero.desc': 'Pierre Handy is a full-stack developer and entrepreneur based in Montreal. I build solid software products with React, Next.js, mobile development, UI/UX and a finance-minded product vision.',
     'hero.cv': 'View my resume',
     'hero.github': 'View GitHub',
     'stats.projects': 'Projects shipped',
@@ -331,11 +331,11 @@ const translations = {
     'stats.study': 'Years studying',
     'skills.label': 'Technical stack',
     'skills.title': 'Skills',
-    'skills.desc': 'My core stack is centered on the modern JavaScript ecosystem — from web to mobile, with robust production tooling.',
+    'skills.desc': 'My core stack is centered on the modern JavaScript ecosystem — React, Next.js, mobile development and robust production tooling for performant web products.',
     'skills.certifications': 'View certifications',
     'projects.label': 'Recent work',
     'projects.title': 'Projects',
-    'projects.desc': 'Concrete projects built to solve real problems. Every line of code is shaped around user experience.',
+    'projects.desc': 'Concrete Pierre Handy projects built to solve real problems with product thinking, UI/UX and modern software development.',
     'projects.view': 'View project',
     'projects.demo': 'View demo',
     'project.biblio.desc': 'Book-sharing platform for users based on mutual agreement. Complete admin panel with statistics and access key management.',
@@ -344,7 +344,7 @@ const translations = {
     'education.label': 'Academic path',
     'education.title': 'Education',
     'contact.label': "Let's work together",
-    'contact.desc': 'A project or opportunity? I am available. Reply within 24 hours.',
+    'contact.desc': 'A software project, product opportunity or tech/finance collaboration in Montreal or remotely? I am available. Reply within 24 hours.',
     'contact.name': 'Name',
     'contact.subject': 'Subject',
     'contact.submit': 'Send message',
@@ -532,6 +532,74 @@ function getPortfolioConfigValue(path) {
   }
 })();
 
+/* ── SEO structured data ──────────────────────────────────── */
+(function initStructuredData() {
+  const target = document.getElementById('structured-data');
+  if (!target) return;
+
+  const siteUrl = 'https://pierrehandy.com/';
+  const socialProfiles = [
+    getPortfolioConfigValue('githubProfile'),
+    getPortfolioConfigValue('social.linkedin'),
+    getPortfolioConfigValue('social.instagram'),
+    getPortfolioConfigValue('social.tiktok')
+  ].filter(Boolean);
+
+  const graph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Person',
+        '@id': `${siteUrl}#pierre-handy`,
+        name: 'Pierre Handy',
+        alternateName: ['Pierre Handy Charles', 'Handy.dev'],
+        url: siteUrl,
+        image: `${siteUrl}images/profil/pic.png`,
+        jobTitle: 'Full-Stack Developer',
+        description: 'Pierre Handy is a full-stack developer, tech entrepreneur and finance-minded product builder based in Montreal, Canada.',
+        knowsAbout: [
+          'Full-Stack Development',
+          'React',
+          'Next.js',
+          'Mobile Development',
+          'UI/UX',
+          'Product Development',
+          'Software Engineering',
+          'Entrepreneurship',
+          'Finance'
+        ],
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Montreal',
+          addressRegion: 'QC',
+          addressCountry: 'CA'
+        },
+        sameAs: socialProfiles
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${siteUrl}#website`,
+        url: siteUrl,
+        name: 'Pierre Handy Portfolio',
+        alternateName: 'Handy.dev',
+        publisher: { '@id': `${siteUrl}#pierre-handy` },
+        inLanguage: ['fr-CA', 'en-CA']
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${siteUrl}#organization`,
+        name: 'Handy.dev',
+        url: siteUrl,
+        founder: { '@id': `${siteUrl}#pierre-handy` },
+        logo: `${siteUrl}images/logo/dev-logo.svg`,
+        sameAs: socialProfiles
+      }
+    ]
+  };
+
+  target.textContent = JSON.stringify(graph);
+})();
+
 /* ── Project Modal ────────────────────────────────────────── */
 (function initProjectModal() {
   const overlay   = document.getElementById('project-modal');
@@ -559,7 +627,11 @@ function getPortfolioConfigValue(path) {
       v.appendChild(src); return v;
     })() : (() => {
       const img = document.createElement('img');
-      img.src = s.src; img.alt = s.caption || ''; return img;
+      img.src = s.src;
+      img.alt = s.caption || 'Pierre Handy project preview';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      return img;
     })();
     carouselEl.appendChild(el);
     if (captionEl) captionEl.textContent = s.caption || '';

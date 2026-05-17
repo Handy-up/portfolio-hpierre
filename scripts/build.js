@@ -7,6 +7,8 @@ const distDir = path.join(rootDir, 'dist');
 
 const entries = [
   'index.html',
+  'robots.txt',
+  'sitemap.xml',
   'config.js',
   'JsFiles',
   'style',
