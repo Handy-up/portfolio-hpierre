@@ -52,6 +52,143 @@
   });
 })();
 
+/* ── Hero DotGrid background ──────────────────────────────── */
+(function initHeroDotGrid() {
+  const section = document.getElementById('about');
+  const canvas = document.getElementById('hero-dot-grid-canvas');
+  if (!section || !canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const config = {
+    dotSize: 3,
+    gap: 72,
+    baseColor: { r: 62, g: 207, b: 142, a: 0.18 },
+    activeColor: { r: 62, g: 207, b: 142, a: 0.82 },
+    proximity: 260,
+    shockRadius: 150,
+    shockStrength: 14,
+    friction: 0.86,
+    spring: 0.075
+  };
+
+  const dots = [];
+  const pointer = {
+    x: -9999,
+    y: -9999,
+    active: false
+  };
+
+  function buildGrid() {
+    const rect = section.getBoundingClientRect();
+    const width = Math.max(1, rect.width);
+    const height = Math.max(1, rect.height);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    dots.length = 0;
+    const cell = config.dotSize + config.gap;
+    const cols = Math.ceil(width / cell) + 1;
+    const rows = Math.ceil(height / cell) + 1;
+    const startX = ((width - (cols - 1) * cell) / 2) + config.dotSize / 2;
+    const startY = ((height - (rows - 1) * cell) / 2) + config.dotSize / 2;
+
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        dots.push({
+          x: startX + x * cell,
+          y: startY + y * cell,
+          ox: 0,
+          oy: 0,
+          vx: 0,
+          vy: 0
+        });
+      }
+    }
+  }
+
+  function mixColor(dotX, dotY) {
+    if (!pointer.active) return `rgba(${config.baseColor.r},${config.baseColor.g},${config.baseColor.b},${config.baseColor.a})`;
+    const distance = Math.hypot(dotX - pointer.x, dotY - pointer.y);
+    const t = Math.max(0, 1 - distance / config.proximity);
+    const alpha = config.baseColor.a + (config.activeColor.a - config.baseColor.a) * t;
+    return `rgba(${config.activeColor.r},${config.activeColor.g},${config.activeColor.b},${alpha.toFixed(3)})`;
+  }
+
+  function draw() {
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    ctx.clearRect(0, 0, width, height);
+
+    for (const dot of dots) {
+      if (!reduceMotion) {
+        dot.vx += -dot.ox * config.spring;
+        dot.vy += -dot.oy * config.spring;
+        dot.vx *= config.friction;
+        dot.vy *= config.friction;
+        dot.ox += dot.vx;
+        dot.oy += dot.vy;
+      }
+
+      const x = dot.x + dot.ox;
+      const y = dot.y + dot.oy;
+      ctx.beginPath();
+      ctx.arc(x, y, config.dotSize / 2, 0, Math.PI * 2);
+      ctx.fillStyle = mixColor(x, y);
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  function updatePointer(event) {
+    const rect = section.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    pointer.x = x;
+    pointer.y = y;
+    pointer.active = x >= 0 && y >= 0 && x <= rect.width && y <= rect.height;
+  }
+
+  function applyShock(event) {
+    if (reduceMotion || !pointer.active) return;
+    updatePointer(event);
+    for (const dot of dots) {
+      const dx = dot.x - pointer.x;
+      const dy = dot.y - pointer.y;
+      const distance = Math.hypot(dx, dy);
+      if (distance > config.shockRadius || distance === 0) continue;
+      const force = (1 - distance / config.shockRadius) * config.shockStrength;
+      dot.vx += (dx / distance) * force;
+      dot.vy += (dy / distance) * force;
+    }
+  }
+
+  buildGrid();
+  draw();
+
+  const ro = 'ResizeObserver' in window ? new ResizeObserver(buildGrid) : null;
+  if (ro) ro.observe(section);
+  else window.addEventListener('resize', buildGrid);
+
+  if (!reduceMotion) {
+    section.addEventListener('mousemove', updatePointer, { passive: true });
+    section.addEventListener('mouseleave', () => {
+      pointer.active = false;
+      pointer.x = -9999;
+      pointer.y = -9999;
+    });
+    section.addEventListener('click', applyShock);
+  }
+})();
+
 /* ── Navbar ───────────────────────────────────────────────── */
 (function initNavbar() {
   const nav     = document.querySelector('.navbar');
